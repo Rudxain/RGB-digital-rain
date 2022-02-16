@@ -1,2 +1,2 @@
-# RGB-digital-rain
-The Matrix "falling code" or "letter rain" but RGB. No more monochromatic green!
+# Credits
+Original source code by Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
