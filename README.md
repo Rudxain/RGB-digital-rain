@@ -1,3 +1,6 @@
+# Demo
+![](RGB%20Matrix%20demo.png)
+
 # Usage
 Download all files in this repo. Make sure all files are located in the same directory after the download.
 Open `index.html` in your browser of choice (it also works on Chrome for Android!), and enjoy!
