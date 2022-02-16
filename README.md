@@ -1,5 +1,5 @@
 # Demo
-![Demo](RGB Matrix demo.png)
+![Demo](./RGB Matrix demo.png)
 
 # Usage
 Download all files in this repo. Make sure all files are located in the same directory after the download.
