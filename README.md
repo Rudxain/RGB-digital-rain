@@ -3,6 +3,7 @@
 
 # ℹUsage
 * Direct link: https://rudxain.github.io/RGB-digital-rain
+
 Or...
 * How to ⬇️download:
   + For 📱mobile device users: Activate "desktop mode" or "request desktop site" in your browser. GitHub will now show you the "Code🔽" button, click it, then click "Download ZIP".
