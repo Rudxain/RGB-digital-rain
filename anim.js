@@ -1,13 +1,12 @@
 'use strict';
 //setup and initialization
-const canvas = document.getElementById('cw'),
-	ctx = canvas.getContext('2d'),
+const canvas = document.getElementById('cw'), ctx = canvas.getContext('2d'),
 	w = canvas.width = document.body.offsetWidth,
 	h = canvas.height = document.body.offsetHeight,
 	space = 24, //pixel spacing between chars
 	font = (space - 8) + 'pt monospace',
-	colors = ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],
-	//should these 2 be hardcoded?
+	colors = ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],//red, yellow, green, cyan, blue, magenta
+	//should these 2 stay hardcoded?
 	charset = '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
 	columns = Math.floor(w / space) + 1,
 	y_pos = Array(columns).fill(0);
