@@ -16,7 +16,7 @@ If you downloaded a ZIP, then extract it. Open `index.html` in your 🌐browser 
 Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 
 # 📝To-Do:
-* Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `window.location`.
+* Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `location.href`.
 * Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
 * Make the GitHub Pages site use a minified version of the entire repo.
 * Replace JS by TypeScript in anim.js (convert to anim.ts to take advantage of TS features).
