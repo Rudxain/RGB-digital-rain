@@ -15,7 +15,7 @@ If you downloaded a ZIP, then extract it. Open `index.html` in your 🌐browser 
 # ⭐Credits
 Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 
-# Future
+# 📝To-Do:
 * Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `window.location`.
 * Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
 * Make the GitHub Pages site use a minified version of the entire repo.
