@@ -19,7 +19,7 @@ Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 * Use event listener to auto-resize the canvas when the window is resized.
 * Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `location.href`.
 * Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
-* Make the GitHub Pages site use a minified version of the entire repo.
+* Make the GitHub Pages site use a minified version of the source files.
 * Replace JS by TypeScript in anim.js (convert to anim.ts to take advantage of TS features).
 * Use vector graphics instead of a bitmap.
 * Keep consistent density regardless of display resolution (currently, 4k displays show very small chars, and low-res displays show them big).
