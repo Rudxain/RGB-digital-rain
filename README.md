@@ -1,5 +1,5 @@
 # ▶️Demo
-![](RGB%20Matrix%20demo.png)
+![](demo.png)
 
 # ℹUsage
 You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) to see the animation on any device, or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this repo as a .zip file. If you downloaded the zip, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
