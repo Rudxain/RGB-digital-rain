@@ -18,7 +18,7 @@ If you don't believe me, the "official" name is ["Digital Rain"](https://en.wiki
 # ⭐Credits
 1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 2. My family member for sending me the article.
-3. Inspiration by RGB PC setups.
+3. Inspiration by [RGB PC setups](https://redtech.lk/file/2020/01/Omega_3.png). [This one](https://reddit.com/r/pcmasterrace/comments/rhzb6i/i_built_an_rgb_side_panel_with_the_matrix_digital) looks similar to my animation.
 
 # 📝To-Do (sorted by priority)
 1. Use event listener to auto-resize the canvas when the window is resized.
