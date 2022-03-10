@@ -14,7 +14,7 @@ const canvas = document.getElementById('cw'), ctx = canvas.getContext('2d'),
 ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
 
 let color_i = 0;
-const matrix = function()
+const newFrame = function()
 {
 	ctx.fillStyle = '#0001'; ctx.fillRect(0, 0, w, h);
 	ctx.fillStyle = '#' + colors[color_i++]; color_i %= colors.length; ctx.font = font;
@@ -24,9 +24,9 @@ const matrix = function()
 		ctx.fillText(charset[Math.random() * charset.length | 0], x, y);
 		//since the offset and multiplier are arbitrary,
 		//we have the freedom to use powers of 2 for better performance
-		y_pos[i] = y > Math.random() * 2 ** 14 + 0x80 ? 0 : y + space;
+		y_pos[i] = y > Math.random() * (1 << 14) + 0x80 ? 0 : y + space;
 	});
 },
 	FPS_to_ms = FPS => 1000 / FPS;
 
-setInterval(matrix, FPS_to_ms(30))
+setInterval(newFrame, FPS_to_ms(30))
