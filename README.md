@@ -20,7 +20,7 @@ If you don't believe me, the "official" name is ["Digital Rain"](https://en.wiki
 2. My family member for sending me the article.
 3. Inspiration by RGB PC setups.
 
-# 📝To-Do (sorted by priority):
+# 📝To-Do (sorted by priority)
 1. Use event listener to auto-resize the canvas when the window is resized.
 2. Add settings for speed, colors, and charset. Also store them as cookies.
 3. Make it interactive.
