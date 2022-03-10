@@ -2,7 +2,7 @@
 ![](RGB%20Matrix%20demo.png)
 
 # ℹUsage
-* Direct link: https://rudxain.github.io/RGB-digital-rain
+* Direct link: https://Rudxain.github.io/RGB-digital-rain
 
 Or...
 * How to ⬇️download:
@@ -13,14 +13,14 @@ Or...
 If you downloaded a ZIP, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
 
 # Naming?
-If you don't believe me, the "official" name is ("Digital Rain")[https://en.wikipedia.org/wiki/Matrix_digital_rain], even though the standard-de-facto is "falling code".
+If you don't believe me, the "official" name is ["Digital Rain"](https://en.wikipedia.org/wiki/Matrix_digital_rain), even though the standard-de-facto is "falling code".
 
 # ⭐Credits
 1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 2. My family member for sending me the article.
 3. Inspiration by RGB PC setups.
 
-# 📝To-Do (sorted by priority):
+# 📝To-Do (sorted by priority)
 1. Use event listener to auto-resize the canvas when the window is resized.
 2. Add settings for speed, colors, and charset. Also store them as cookies.
 3. Make it interactive.
