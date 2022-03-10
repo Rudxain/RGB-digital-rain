@@ -2,15 +2,9 @@
 ![](RGB%20Matrix%20demo.png)
 
 # ℹUsage
-* Direct link: https://Rudxain.github.io/RGB-digital-rain
-
-Or...
-* How to ⬇️download:
-  + For 📱mobile device users: Activate "desktop mode" or "request desktop site" in your browser. GitHub will now show you the "Code🔽" button, click it, then click "Download ZIP".
-  + For 🖥desktop/💻laptop PC users: Same as mobile. But no need to use "desktop mode".
-  + For users who 📋CP: Create 📄files with the names "index.html", and "anim.js", in whatever directory (📂folder) you want. Select and copy the contents from each of the corresponding files in this repo, then paste those contents in the corresponding files in the directory you have chosen. "favicon.png" is somewhat optional, you can recreate it in MS Paint by creating a 16x16 PNG image.
-
-If you downloaded a ZIP, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
+* Direct website link: https://Rudxain.github.io/RGB-digital-rain
+* [Download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this repo as a .zip file.
+If you downloaded the zip, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
 
 # Naming?
 If you don't believe me, the "official" name is ["Digital Rain"](https://en.wikipedia.org/wiki/Matrix_digital_rain), even though the standard-de-facto is "falling code".
