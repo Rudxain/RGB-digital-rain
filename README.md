@@ -2,7 +2,7 @@
 ![](RGB%20Matrix%20demo.png)
 
 # ℹUsage
-* Direct link: https://rudxain.github.io/RGB-digital-rain
+* Direct link: https://Rudxain.github.io/RGB-digital-rain
 
 Or...
 * How to ⬇️download:
@@ -13,7 +13,7 @@ Or...
 If you downloaded a ZIP, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
 
 # Naming?
-If you don't believe me, the "official" name is ("Digital Rain")[https://en.wikipedia.org/wiki/Matrix_digital_rain], even though the standard-de-facto is "falling code".
+If you don't believe me, the "official" name is ["Digital Rain"](https://en.wikipedia.org/wiki/Matrix_digital_rain), even though the standard-de-facto is "falling code".
 
 # ⭐Credits
 1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
