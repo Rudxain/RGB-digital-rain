@@ -12,16 +12,21 @@ Or...
 
 If you downloaded a ZIP, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
 
-# ⭐Credits
-Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
+# Naming?
+If you don't believe me, the "official" name is ("Digital Rain")[https://en.wikipedia.org/wiki/Matrix_digital_rain], even though the standard-de-facto is "falling code".
 
-# 📝To-Do:
-* Use event listener to auto-resize the canvas when the window is resized.
-* Add settings for speed, colors, and charset. Also store them as cookies.
-* Make it interactive.
-* Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `location.href`.
-* Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
-* Make the GitHub Pages site use a minified version of the source files.
-* Replace JS by TypeScript in anim.js (convert to anim.ts to take advantage of TS features).
-* Use vector graphics instead of a bitmap.
-* Keep consistent density regardless of display resolution (currently, 4k displays show very small chars, and low-res displays show them big).
+# ⭐Credits
+1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
+2. My family member for sending me the article.
+3. Inspiration by RGB PC setups.
+
+# 📝To-Do (sorted by priority):
+1. Use event listener to auto-resize the canvas when the window is resized.
+2. Add settings for speed, colors, and charset. Also store them as cookies.
+3. Make it interactive.
+4. Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `location.href`.
+5. Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
+6. Make the GitHub Pages site use a minified version of the source files.
+7. Replace JS by TypeScript in anim.js (convert to anim.ts to take advantage of TS features).
+8. Use vector graphics instead of a bitmap.
+9. Keep consistent density regardless of display resolution (currently, 4k displays show very small chars, and low-res displays show them big).
