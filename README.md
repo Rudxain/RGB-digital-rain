@@ -24,7 +24,7 @@ If you don't believe me, the "official" name is ["Digital Rain"](https://en.wiki
 1. Use event listener to auto-resize the canvas when the window is resized.
 2. Add settings for speed, colors, and charset. Also store them as cookies.
 3. Make it interactive.
-4. Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `location.href`.
+4. Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `[location.href](https://developer.mozilla.org/en-US/docs/Web/API/Location/href)`.
 5. Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
 6. Make the GitHub Pages site use a minified version of the source files.
 7. Replace JS by TypeScript in anim.js (convert to anim.ts to take advantage of TS features).
