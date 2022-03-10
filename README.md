@@ -17,6 +17,7 @@ Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 
 # 📝To-Do:
 * Use event listener to auto-resize the canvas when the window is resized.
+* Add settings for speed, colors, and charset. Also store them as cookies.
 * Make it interactive.
 * Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of `location.href`.
 * Use `requestAnimationFrame` instead of `setInterval`, for Vsync and energy efficiency.
