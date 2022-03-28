@@ -1,6 +1,6 @@
 'use strict';
 //setup and initialization
-const canvas = document.getElementById('cw'), ctx = canvas.getContext('2d'),
+const canvas = document.getElementById('c'), ctx = canvas.getContext('2d'),
 	w = canvas.width = document.body.offsetWidth,
 	h = canvas.height = document.body.offsetHeight,
 	space = 24, //pixel spacing between chars
