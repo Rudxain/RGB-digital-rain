@@ -11,8 +11,3 @@ If you don't believe me, the "official" name is ["Digital Rain"](https://en.wiki
 1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
 2. My family member for sending me the article.
 3. Inspiration by [RGB PC setups](https://redtech.lk/file/2020/01/Omega_3.png). [This one](https://reddit.com/r/pcmasterrace/comments/rhzb6i/i_built_an_rgb_side_panel_with_the_matrix_digital) looks similar to my animation.
-
-# 📝To-Do
-* Make it interactive (how?).
-* Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of [`location.href`](https://developer.mozilla.org/en-US/docs/Web/API/Location/href).
-* Use vector graphics instead of a bitmap
