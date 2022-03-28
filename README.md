@@ -15,6 +15,4 @@ If you don't believe me, the "official" name is ["Digital Rain"](https://en.wiki
 # 📝To-Do
 * Make it interactive (how?).
 * Add a developer/debug mode that "unlocks" constants. I'll implement it by conditionally executing code based on the content of [`location.href`](https://developer.mozilla.org/en-US/docs/Web/API/Location/href).
-* Replace JS by TypeScript in anim.js (convert to anim.ts to take advantage of TS features).
-* Make the GitHub Pages site use a minified version of the source files.
 * Use vector graphics instead of a bitmap
