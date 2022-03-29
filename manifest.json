@@ -5,5 +5,12 @@
 	"dir": "ltr",
 	"icons": [{"src": "favicon.png", "sizes": "16x16", "type": "image/png"}],
 	"background_color": "#000", "theme_color": "#000",
-	"display": "fullscreen"
+	"display": "fullscreen",
+	"screenshots" : [{
+		"src": "demo.png",
+		"sizes": "1366x768",
+		"type": "image/png",
+		"platform": "wide",
+		"label": "Static demo of RGB Digital Rain"
+	}]
 }
