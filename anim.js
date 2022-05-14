@@ -1,19 +1,20 @@
 'use strict';
 //setup and initialization
-const canvas = document.getElementById('c'), ctx = canvas.getContext('2d'),
+const canvas = document.getElementById('c'), ctx = canvas.getContext('2d', {alpha: false}),
 	w = canvas.width = document.body.offsetWidth,
 	h = canvas.height = document.body.offsetHeight,
 	space = 24, //pixel spacing between chars
 	font = space + 'px monospace',
 	colors = ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],//red, yellow, green, cyan, blue, magenta
 	//should these 2 stay hardcoded?
-	charset = '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
+	charset = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
 	columns = Math.floor(w / space) + 1,
 	y_pos = Array(columns).fill(0);
 
-ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h);
+//set BG to pure black
+ctx.fillStyle = '#000'; ctx.fillRect(0, 0, w, h)
 
-let color_i = 0;
+let color_i = 0
 const newFrame = function()
 {
 	ctx.fillStyle = '#0001'; ctx.fillRect(0, 0, w, h);
