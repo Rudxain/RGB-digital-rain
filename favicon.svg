@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="13" width="13" style="background-color:#000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<!--stripes-->
+	<rect fill="#700" height="5" width="1" x="1" y="1"/>
+	<rect fill="#f00" height="5" width="1" x="1" y="7"/>
+	<rect fill="#770" height="5" width="1" x="3" y="1"/>
+	<rect fill="#ff0" height="5" width="1" x="3" y="7"/>
+	<rect fill="#070" height="5" width="1" x="5" y="1"/>
+	<rect fill="#0f0" height="5" width="1" x="5" y="7"/>
+	<rect fill="#077" height="5" width="1" x="7" y="1"/>
+	<rect fill="#0ff" height="5" width="1" x="7" y="7"/>
+	<rect fill="#007" height="5" width="1" x="9" y="1"/>
+	<rect fill="#00f" height="5" width="1" x="9" y="7"/>
+	<rect fill="#707" height="5" width="1" x="11" y="1"/>
+	<rect fill="#f0f" height="5" width="1" x="11" y="7"/>
+	<!--black bars-->
+	<rect fill="#000" height="1" width="11" x="1" y="2"/>
+	<rect fill="#000" height="1" width="11" x="1" y="4"/>
+	<rect fill="#000" height="1" width="11" x="1" y="8"/>
+	<rect fill="#000" height="1" width="11" x="1" y="10"/>
+</svg>
