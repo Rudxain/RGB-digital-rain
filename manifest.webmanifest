@@ -3,14 +3,12 @@
 	"description": "The Matrix \u0022falling code/letter rain\u0022 animation but RGB. No more monochromatic green!",
 	"lang": "en",
 	"dir": "ltr",
-	"icons": [{"src": "favicon.png", "sizes": "16x16", "type": "image/png"}],
+	"icons": [{"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml"}],
 	"background_color": "#000", "theme_color": "#000",
 	"display": "fullscreen",
 	"screenshots" : [{
-		"src": "demo.png",
-		"sizes": "1366x768",
-		"type": "image/png",
-		"platform": "wide",
+		"src": "demo.png", "type": "image/png",
+		"sizes": "1366x768", "platform": "wide",
 		"label": "Static demo of RGB Digital Rain"
 	}]
 }
