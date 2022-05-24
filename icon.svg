@@ -13,7 +13,7 @@
 	<rect fill="#00f" height="5" width="1" x="9" y="7"/>
 	<rect fill="#707" height="5" width="1" x="11" y="1"/>
 	<rect fill="#f0f" height="5" width="1" x="11" y="7"/>
-	<!--black bars-->
+	<!--bars-->
 	<rect fill="#000" height="1" width="11" x="1" y="2"/>
 	<rect fill="#000" height="1" width="11" x="1" y="4"/>
 	<rect fill="#000" height="1" width="11" x="1" y="8"/>
