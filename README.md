@@ -1,3 +1,6 @@
+# Logo
+![](icon.svg)
+
 # ▶️Demo
 ![](demo.png)
 
