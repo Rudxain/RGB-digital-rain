@@ -1,5 +1,5 @@
 # Logo
-![](icon.svg)
+![yes, I know it's tiny](icon.svg)
 
 # ▶️Demo
 ![](demo.png)
