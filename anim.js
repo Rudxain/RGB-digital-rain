@@ -5,10 +5,10 @@ const canvas = document.getElementById('c'),
 	w = canvas.width = document.body.offsetWidth,
 	h = canvas.height = document.body.offsetHeight,
 	space = 24, //pixel spacing between chars
-	//red, yellow, green, cyan, blue, magenta
+	//primary and secondary colors
 	colors = ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],
 	charset = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-	columns = new Uint32Array(w / space + 1),
+	columns = new Uint32Array(Math.ceil(w / space)),
 	FPS_to_ms = f => 1000 / f,
 	randRange = (min, max) => Math.random() * (max - min) + +min
 
@@ -22,17 +22,17 @@ const baseFrame = () => {
 		//since the range is arbitrary, we have freedom to use powers of 2 for performance
 		columns[i] = y > (randRange(1 << 7, 1 << 14) >>> 0) ? 0 : y + space
 	}
-},
-	nextFrame = now => {
-		if (now - start > FPS_to_ms(30)) {
-			//global dimming, make the trail disappear gradually
-			ctx.fillStyle = '#0001'; ctx.fillRect(0, 0, w, h)
-			color_i %= colors.length
-			baseFrame()
-			start = now
-		}
-		requestAnimationFrame(nextFrame)
+}
+const nextFrame = now => {
+	if (now - start > FPS_to_ms(30)) {
+		//global dimming, make the trail disappear gradually
+		ctx.fillStyle = '#0001'; ctx.fillRect(0, 0, w, h)
+		color_i %= colors.length
+		baseFrame()
+		start = now
 	}
+	requestAnimationFrame(nextFrame)
+}
 
 requestAnimationFrame(now => {
 	//set BG to pure black

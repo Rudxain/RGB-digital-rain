@@ -1,9 +1,8 @@
 {
-	"name": "RGB Digital Rain", "short_name": "RGB Digit Rain",
+	"name": "RGB Digital Rain", "short_name": "RGB DigitRain",
 	"description": "The Matrix \u0022falling code/letter rain\u0022 animation but RGB. No more monochromatic green!",
-	"lang": "en",
-	"dir": "ltr",
-	"icons": [{"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml"}],
+	"lang": "en", "dir": "ltr",
+	"icons": [{"src": "icon.svg", "sizes": "any", "type": "image/svg+xml"}],
 	"background_color": "#000", "theme_color": "#000",
 	"display": "fullscreen",
 	"screenshots" : [{
