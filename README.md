@@ -1,3 +1,6 @@
+# Logo
+![](icon.svg) yes, I know it's tiny
+
 # ▶️Demo
 ![](demo.png)
 
