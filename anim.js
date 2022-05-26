@@ -47,24 +47,30 @@ const drawChars = () => {
 		*/
 	}
 }
-//makes the trails fade out
+//fade out trails
 const doGlobalDimming = now => {
-	if (playing) {
-		//`round` vs `floor`, which is better?
-		const delta = now - t, dim = Math.round(clamp(delta * dimDepth, 0, 0xff))
-		ctx.fillStyle = '#000000' + dim.toString(16).padStart(2, '0')
+	if (!playing) return
+	const delta = now - t, dim = Math.round(clamp(delta * dimDepth, 0, 0xff))
+	//performance
+	if (dim){
+		ctx.fillStyle = '#000000' + dim.toString(0x10).padStart(2, '0')
 		ctx.fillRect(0, 0, w, h)
+		//and ensure hi-FPS don't cause dim to get stuck as a no-op
+		t = now
 	}
-	t = now //out of the block, to avoid pitch black when resuming
 	requestAnimationFrame(doGlobalDimming)
 }
 //the interval ensures `drawChars` is independent of FPS
-const togglePlay = ()=> (playing = !playing) ? itID = setInterval(drawChars, Hz_to_ms(speed)) : clearInterval(itID)
+const togglePlay = () => {
+	(playing = !playing)
+	? ( itID = setInterval(drawChars, Hz_to_ms(speed)),
+		requestAnimationFrame(doGlobalDimming) )
+	: clearInterval(itID)
+}
 
 resize() //not part of anim, and has some latency, so no RAF
 requestAnimationFrame(now => {drawChars(); t = now}) //minimal latency
-togglePlay() //should this be called after dGD? what's the diff?
-requestAnimationFrame(doGlobalDimming)
+togglePlay()
 
 //debounced
 addEventListener('resize', () => {clearTimeout(tmID); tmID = setTimeout(resize, resizeDelay)})
