@@ -2,7 +2,8 @@
 ![](icon.svg) yes, I know it's tiny
 
 # ▶️Demo
-![](demo.png)
+![](demo_desktop.png)
+![](demo_mobile.png)
 
 # ℹUsage
 You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) to see the animation on (almost) any device, or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this repo as a .zip file. If you downloaded the zip, then extract it. Open `index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
