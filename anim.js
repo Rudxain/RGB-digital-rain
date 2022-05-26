@@ -12,10 +12,10 @@ const canv = document.getElementById('c'),
 	clamp = (x, min, max) => x > max ? max : x < min ? min : x //[min, max]
 
 let resizeDelay = 1500,//ms
-	zoom = 24, //px
+	zoom = 32, //px
 	speed = 30, //Hz of new chars drawn, no-op for dimming
-	dimDepth = 0.5, //dimming intensity
-	minCol = 7, maxCol = 14,
+	dimDepth = 32 / 64, //dimming intensity
+	minCol = 6, maxCol = 14,
 	w, h,
 	color_i = 0,
 	t, playing,
@@ -32,7 +32,7 @@ const resize = () => {
 }
 const drawChars = () => {
 	ctx.fillStyle = '#' + colors[color_i++]
-	ctx.font = zoom + 'px monospace'
+	ctx.font = `bold ${zoom}px monospace`
 	color_i %= colors.length
 	for (let i = 0, x = 0; i < colTracer.length; i++, x += zoom) {
 		const y = colTracer[i]
@@ -51,7 +51,7 @@ const drawChars = () => {
 const doGlobalDimming = now => {
 	if (playing) {
 		//`round` vs `floor`, which is better?
-		const delta = now - t, dim = Math.round(clamp(delta + dimDepth, 0, 0xff))
+		const delta = now - t, dim = Math.round(clamp(delta * dimDepth, 0, 0xff))
 		ctx.fillStyle = '#000000' + dim.toString(16).padStart(2, '0')
 		ctx.fillRect(0, 0, w, h)
 	}
