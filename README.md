@@ -2,7 +2,9 @@
 ![](icon.svg) yes, I know it's tiny
 
 # ▶️Demo
+## Desktop
 ![](demo_desktop.png)
+## Mobile
 ![](demo_mobile.png)
 
 # ℹUsage
