@@ -1,5 +1,6 @@
 'use strict';
-const canv = document.getElementById('c'),
+const RAF = requestAnimationFrame,
+	canv = document.getElementById('c'),
 	ctx = canv.getContext('2d', {alpha: false, desynchronized: true}),
 	//primary and secondary colors
 	colors = ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],
@@ -12,8 +13,8 @@ const canv = document.getElementById('c'),
 	clamp = (x, min, max) => x > max ? max : x < min ? min : x //[min, max]
 
 let resizeDelay = 1500,//ms
-	zoom = 32, //px
-	speed = 30, //Hz of new chars drawn, no-op for dimming
+	zoom = 32,//px
+	speed = 30,//Hz of new chars drawn, no-op for dimming
 	dimDepth = 32 / 64, //dimming intensity
 	minCol = 6, maxCol = 14,
 	w, h,
@@ -47,24 +48,29 @@ const drawChars = () => {
 		*/
 	}
 }
-//makes the trails fade out
+//fade out trails
 const doGlobalDimming = now => {
-	if (playing) {
-		//`round` vs `floor`, which is better?
-		const delta = now - t, dim = Math.round(clamp(delta * dimDepth, 0, 0xff))
-		ctx.fillStyle = '#000000' + dim.toString(16).padStart(2, '0')
+	if (!playing) return
+	const delta = now - t, dim = Math.round(clamp(delta * dimDepth, 0, 0xff))
+	//performance
+	if (dim){
+		ctx.fillStyle = '#000000' + dim.toString(0x10).padStart(2, '0')
 		ctx.fillRect(0, 0, w, h)
+		//and ensure hi-FPS don't cause dim to get stuck as a no-op
+		t = now
 	}
-	t = now //out of the block, to avoid pitch black when resuming
-	requestAnimationFrame(doGlobalDimming)
+	RAF(doGlobalDimming)
 }
 //the interval ensures `drawChars` is independent of FPS
-const togglePlay = ()=> (playing = !playing) ? itID = setInterval(drawChars, Hz_to_ms(speed)) : clearInterval(itID)
+const togglePlay = () => {
+	(playing = !playing)
+	? ( itID = setInterval(drawChars, Hz_to_ms(speed)), RAF(doGlobalDimming) )
+	: clearInterval(itID)
+}
 
 resize() //not part of anim, and has some latency, so no RAF
-requestAnimationFrame(now => {drawChars(); t = now}) //minimal latency
-togglePlay() //should this be called after dGD? what's the diff?
-requestAnimationFrame(doGlobalDimming)
+RAF(now => {drawChars(); t = now}) //minimal latency for 1st frame
+togglePlay()
 
 //debounced
 addEventListener('resize', () => {clearTimeout(tmID); tmID = setTimeout(resize, resizeDelay)})
