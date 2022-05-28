@@ -15,7 +15,7 @@ const RAF = requestAnimationFrame,
 let resizeDelay = 1500,//ms
 	zoom = 32,//px
 	speed = 30,//Hz of new chars drawn, no-op for dimming
-	dimDepth = 32 / 64, //dimming intensity
+	dimDepth = 1, //dimming intensity
 	minCol = 6, maxCol = 14,
 	w, h,
 	color_i = 0,
