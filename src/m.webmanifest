@@ -7,12 +7,12 @@
 	"display": "fullscreen",
 	"screenshots" : [
 		{
-			"src": "res/demo_horizontal.png", "type": "image/png",
+			"src": "../res/demo_horizontal.png", "type": "image/png",
 			"sizes": "1920x1080", "platform": "wide",
 			"label": "Desktop demo of RGB Digital Rain"
 		},
 		{
-			"src": "res/demo_vertical.png", "type": "image/png",
+			"src": "../res/demo_vertical.png", "type": "image/png",
 			"sizes": "720x1280", "platform": "narrow",
 			"label": "Mobile demo of RGB Digital Rain"
 		}
