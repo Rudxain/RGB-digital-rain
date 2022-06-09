@@ -3,7 +3,7 @@
 "description": "The Matrix \u0022falling code/letter rain\u0022 animation but RGB. No more monochromatic green!",
 "start_url": "https://Rudxain.github.io/RGB-digital-rain",
 "lang": "en",
-"icons": [{"src": "../min/i.svg", "sizes": "any", "type": "image/svg+xml"}],
+"icons": [{"src": "../res/icon.svg", "sizes": "any", "type": "image/svg+xml"}],
 "background_color": "#000", "theme_color": "#000",
 "display": "fullscreen",
 "screenshots" : [
