@@ -52,11 +52,12 @@ const drawChars = ()=>{
 	ctx.font = `bold ${zoom}px monospace`
 	for (let i = 0, x = 0; i < heights.length; i++, x += zoom)
 	{
+		const {charset} = settings
 		let y = heights[i], color = colors[colorPtrs[i]]
 		if (settings.mode) ctx.fillStyle = '#' + color
 
-		let rand = randRange( 0, settings.charset.length )>>>0
-		ctx.fillText( settings.charset[rand], x, y )
+		let rand = randRange( 0, charset.length )>>>0
+		ctx.fillText( charset[rand], x, y )
 		//range is arbitrary, we have freedom to use powers of 2 for performance
 		rand = randRange( 1 << settings.minCol, 1 << settings.maxCol )>>>0
 		y = heights[i] = y > rand ? 0 : y + zoom
