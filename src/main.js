@@ -35,6 +35,10 @@ const resize = ()=>{
 	h = canv.height = doc.body.clientHeight
 	//calculate how many columns in the grid are needed to fill the whole canvas
 	const columns = Math.ceil(w / settings.zoom)
+
+	const play = playing //remember last state, to revert correctly
+	if (play) togglePlay() //prevent memory/CPU leak caused by race condition
+
 	//initialize new tracking slots
 	while (columns > heights.length) heights.push(0)
 	heights.length = columns //shrink and deallocate, if necessary
@@ -42,6 +46,8 @@ const resize = ()=>{
 	while (columns > colorPtrs.length)
 		colorPtrs.push(colorPtrs.length % settings.colors.length)
 	colorPtrs.length = columns
+
+	if (play) togglePlay() //revert if needed
 }
 const drawChars = ()=>{
 	const {colors, zoom} = settings
@@ -61,11 +67,6 @@ const drawChars = ()=>{
 		//range is arbitrary, we have freedom to use powers of 2 for performance
 		rand = randRange( 1 << settings.minCol, 1 << settings.maxCol )>>>0
 		y = heights[i] = y > rand ? 0 : y + zoom
-		/*
-		if `colTracer` shrinks immediately before this (race condition),
-		then this could cause a non-critical memory leak, and a "CPU leak".
-		it could (non-deterministic) be fixed by resizing again, or reloading
-		*/
 		//if column is reset, select next color
 		if (!y) colorPtrs[i] = (colorPtrs[i] + 1) % colors.length
 	}
@@ -84,7 +85,7 @@ const doGlobalDimming = now => {
 	RAF( doGlobalDimming )
 }
 //the interval ensures `drawChars` is independent of FPS
-const togglePlay = () => {
+const togglePlay = ()=>{
 	(playing = !playing)
 	?(
 		itID = setInterval( drawChars, Hz_to_ms(settings.speed) ),
