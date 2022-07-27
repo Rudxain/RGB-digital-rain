@@ -1,5 +1,5 @@
 # Logo
-![](res/icon.svg)
+![](res/icon.svg) yes, I know it's tiny
 
 # ▶️Demo
 ## Desktop
