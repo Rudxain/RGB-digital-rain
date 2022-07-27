@@ -1,5 +1,5 @@
 # Logo
-![](res/icon.svg) yes, I know it's tiny
+![Colored vertical stripes](res/icon.svg)
 
 # ▶️Demo
 ## Desktop
