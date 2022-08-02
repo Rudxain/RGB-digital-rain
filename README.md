@@ -1,7 +1,7 @@
 # About this branch
-This will be dedicated to the deploy part, so all files here are minified
+This will be dedicated to the deploy part, so all files here are minified.
 
-[⬇Download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/gh-pages.zip) this branch
+You can [⬇download this branch](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/gh-pages.zip), if you want a local clone and don't care about the source-code.
 
 # Directory tree
 * `a`: `main` script
