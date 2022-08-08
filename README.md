@@ -1,5 +1,5 @@
 # Logo
-![Colored vertical stripes](res/icon.svg)
+<img alt='Colored vertical stripes' src=res/icon.svg width=25% height=25%>
 
 # ▶️Demo
 ## Desktop
