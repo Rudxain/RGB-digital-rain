@@ -10,7 +10,7 @@
 ![](res/demo_vertical.png)
 
 # ℹUsage
-You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) to see the animation on (almost) any device, or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch as a .zip file. If you downloaded the zip, then extract it. Open `./src/index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
+You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) to see the animation on (almost) any device, or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch as a .zip file. If you downloaded the zip, then extract it. Open `src/index.html` in your 🌐browser of choice (it also works on Chrome for Android!), and enjoy the real-time animation!
 
 # Directory tree
 * `src`: Source code files, intended to be used by humans, easier to debug.
@@ -24,7 +24,7 @@ Everything started when a family member (I haven't asked permission to reveal th
 
 I downloaded the source, started editing in [VS-Code](https://en.wikipedia.org/wiki/Visual_Studio_Code) to make some minor improvements, and realized I could update the font color for each individual char being displayed, so I decided to implement the feature using a color table sorted like a *🌈rainbow* (like those [RGB gaming PC setups](https://redtech.lk/file/2020/01/Omega_3.png), lol). I searched on the web to see if someone has done the exact same thing and only found [this video](https://youtu.be/CccQcYzsvI4), which is similar but not the *same* idea, because it has a limited color palette. So I decided to post my little project on GH for anyone to see and give me feedback.
 
-Later I realized GH allowed anyone to create webpages and websites, so I started setting everything up, while also breaking my head trying to understand exactly what I had to do, lol. Some parts of the docs said I had to **install 3 different software packages** using NPM, other parts told me to do other things. But in the end I realized it was much simpler than I thought.
+Later I realized GH allowed anyone to create webpages and websites, so I started setting everything up, while also breaking my head trying to understand exactly what I had to do, lol. Some parts of the docs said I had to **install 3 different packages**, other parts told me to do other things. But in the end I realized it was much simpler than I thought.
 
 # ⭐Credits
 1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
