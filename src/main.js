@@ -7,6 +7,7 @@ const RAF = requestAnimationFrame , doc = document ,
 	//to remember colors for all columns, to keep a consistent trail.
 	//it's an index list, because we need to do pointer arithmetic
 	color_i_ls = [] ,
+	sign_abs = x => [Math.sign(x), Math.abs(x)] ,
 	Hz_to_ms = f => 1000 / f ,
 	//unary `+` is used to avoid accidental concat
 	randRange = (min=0 , max=1) => Math.random() * (max - min) + +min ,
@@ -107,11 +108,15 @@ AKA "trail fader"
 const do_global_dimming = now =>
 {
 	if (!playing) return
+
+	const {dim_factor} = settings
+	const [sgn, abs] = sign_abs(dim_factor)
+
 	//I choose `*` instead of `+`, because it makes more sense as a coefficient rather than offset
-	const dim = Math.round( clamp( (now - t) * settings.dim_factor, 0, 0xff ) )
+	const dim = Math.round( clamp( (now - t) * abs, 0, 0xff ) )
 	//performance...
 	if (dim){
-		ctx.fillStyle = '#000000' + hexPad( dim,1 )
+		ctx.fillStyle = `#${sgn < 0 ? 'ffffff' : '000000'}${hexPad( dim,1 )}`
 		ctx.fillRect( 0,0,w,h )
 		//...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 		t = now
@@ -121,6 +126,8 @@ const do_global_dimming = now =>
 
 const main = ()=>{
 	resize() //not part of anim, and has some latency, so no RAF
+	ctx.fillStyle = '#' + (settings.dim_factor < 0 ? 'fff' : '000')
+	ctx.fillRect( 0,0,w,h )
 	RAF(now => {draw_chars(); t = now}) //minimal latency for 1st frame
 	set_play(true) //Welcome to The Matrix
 
