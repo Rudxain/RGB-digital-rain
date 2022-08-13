@@ -13,12 +13,16 @@ const RAF = requestAnimationFrame , doc = document ,
 	randRange = (min=0 , max=1) => Math.random() * (max - min) + +min ,
 	clamp = (x, min, max) => x > max ? max : x < min ? min : x ,
 	//convert to u32 and return a B16 str whose max byte length is `B`
-	hexPad = (x, B = 4) => (x >>> 0) .toString(0x10) .padStart(B << 1, '0')
+	hexPad = (x, B = 4) => (x >>> 0) .toString(0x10) .padStart(B << 1, '0') ,
+	light_query = window.matchMedia?.('(prefers-color-scheme: light)') ,
+	DEFAULT_DIM = 1
 
 let w=0, h=0,
 	color_i = 0,
 	t, it_ID, tm_ID,
-	playing = false
+	playing = false,
+	//dark must act as default, so light is optional
+	is_dark = !light_query?.matches
 
 const settings = {
 	mode : true,
@@ -30,8 +34,8 @@ const settings = {
 	speed_Hz : 24,//should only affect `draw_chars`, no-op for dimming
 	zoom_px : 32,//grid square size
 	min_y : 6, max_y: 14, //wtf
-	dim_factor : 1, //dimming coefficient
-	resize_delay : 1500//ms
+	dim_factor : DEFAULT_DIM * (is_dark ? 1 : -1), //dimming coefficient
+	resize_delay_ms : 1500
 }
 
 const toggle_play = ()=>{
@@ -75,14 +79,14 @@ const resize = ()=>
 
 const draw_chars = ()=>
 {
-	const {mode, colors, zoom_px: zoom, charset} = settings
+	const {mode, colors, zoom_px, charset} = settings
 
 	if (!mode) {
 		ctx.fillStyle = '#' + colors[color_i++]
 		color_i %= colors.length
 	}
 
-	ctx.font = `bold ${zoom}px monospace`
+	ctx.font = `bold ${zoom_px}px monospace`
 
 	//according to MDN docs, `forEach` seems to be thread-safe here (I guess)
 	heights.forEach((y, i) => {
@@ -91,12 +95,12 @@ const draw_chars = ()=>
 		if (mode) ctx.fillStyle = '#' + color
 
 		let rand = randRange( 0, charset.length )>>>0 //we only need `u32`s, `trunc` won't help here
-		const x = i * zoom
+		const x = i * zoom_px
 		ctx.fillText( charset[rand], x, y )
 
 		//range is arbitrary, we have freedom to use powers of 2 for performance
 		rand = randRange( 1 << settings.min_y, 1 << settings.max_y )>>>0
-		y = heights[i] = y > rand ? 0 : y + zoom
+		y = heights[i] = y > rand ? 0 : y + zoom_px
 		//if column has been reset, pick next color
 		if (!y) color_i_ls[i] = (color_i_ls[i] + 1) % colors.length
 	})
@@ -109,11 +113,9 @@ const do_global_dimming = now =>
 {
 	if (!playing) return
 
-	const {dim_factor} = settings
-	const [sgn, abs] = sign_abs(dim_factor)
-
-	//I choose `*` instead of `+`, because it makes more sense as a coefficient rather than offset
-	const dim = Math.round( clamp( (now - t) * abs, 0, 0xff ) )
+	const {dim_factor} = settings ,
+		[sgn, abs] = sign_abs(dim_factor) ,
+		dim = Math.round( clamp( (now - t) * abs, 0, 0xff ) )
 	//performance...
 	if (dim){
 		ctx.fillStyle = `#${sgn < 0 ? 'ffffff' : '000000'}${hexPad( dim,1 )}`
@@ -134,7 +136,18 @@ const main = ()=>{
 	//debounced, for energy saving
 	addEventListener('resize', ()=>{
 		clearTimeout( tm_ID )
-		tm_ID = setTimeout( resize, settings.resize_delay )
+		tm_ID = setTimeout( resize, settings.resize_delay_ms )
+	})
+
+	light_query?.addEventListener?.('change', e => {
+		if (e.matches) {
+			is_dark = false
+			settings.dim_factor = -Math.abs(settings.dim_factor)
+		}
+		else {
+			is_dark = true
+			settings.dim_factor = Math.abs(settings.dim_factor)
+		}
 	})
 }
 //Python `if __name__=='__main__'` equivalent.
