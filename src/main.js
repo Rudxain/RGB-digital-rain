@@ -1,20 +1,23 @@
 'use strict'
 const RAF = requestAnimationFrame , doc = document ,
 	canv = doc.getElementById('c') ,
-	ctx = canv.getContext( '2d', {alpha : false , desynchronized : true} ) ,
-	heights = [] , //remember altitude of last drawn char, for each char of every column
-	color_i_ls = [] , //remember colors for all columns, to keep a consistent trail
+	ctx = canv.getContext( '2d', {alpha:false , desynchronized:true} ) ,
+	//to remember altitude of last drawn char, for each char of every column
+	heights = [] ,
+	//to remember colors for all columns, to keep a consistent trail.
+	//it's an index list, because we need to do pointer arithmetic
+	color_i_ls = [] ,
 	Hz_to_ms = f => 1000 / f ,
 	//unary `+` is used to avoid accidental concat
-	randRange = (min, max) => Math.random() * (max - min) + +min ,
+	randRange = (min=0 , max=1) => Math.random() * (max - min) + +min ,
 	clamp = (x, min, max) => x > max ? max : x < min ? min : x ,
-	//convert to u32 and return a B16 str whose max byte length is `B + 1`
-	hexPad = (x, B = 3) => (x >>> 0) .toString(0x10) .padStart(((B & 3) + 1 ) << 1, '0')
+	//convert to u32 and return a B16 str whose max byte length is `B`
+	hexPad = (x, B = 4) => (x >>> 0) .toString(0x10) .padStart(B << 1, '0')
 
-let w, h,
+let w=0, h=0,
 	color_i = 0,
 	t, it_ID, tm_ID,
-	playing
+	playing = false
 
 const settings = {
 	mode : true,
@@ -26,7 +29,7 @@ const settings = {
 	speed : 24,//Hz of new chars drawn, no-op for dimming
 	zoom : 32,//px of grid squares
 	min_col : 6, max_col: 14, //wtf
-	dim_depth : 1, //dimming intensity
+	dim_factor : 1, //dimming coefficient
 	resize_delay : 1500//ms
 }
 
@@ -97,15 +100,18 @@ const draw_chars = ()=>
 		if (!y) color_i_ls[i] = (color_i_ls[i] + 1) % colors.length
 	})
 }
-//AKA "trail fader"
+/**
+AKA "trail fader"
+@param {number} now
+*/
 const do_global_dimming = now =>
 {
 	if (!playing) return
-	//should `*` be replaced by `+`?
-	const dim = Math.round( clamp( (now - t) * settings.dim_depth, 0, 0xff ) )
+	//I choose `*` instead of `+`, because it makes more sense as a coefficient rather than offset
+	const dim = Math.round( clamp( (now - t) * settings.dim_factor, 0, 0xff ) )
 	//performance...
 	if (dim){
-		ctx.fillStyle = '#000000' + hexPad( dim,0 )
+		ctx.fillStyle = '#000000' + hexPad( dim,1 )
 		ctx.fillRect( 0,0,w,h )
 		//...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 		t = now
@@ -113,7 +119,7 @@ const do_global_dimming = now =>
 	RAF( do_global_dimming )
 }
 
-const main = () => {
+const main = ()=>{
 	resize() //not part of anim, and has some latency, so no RAF
 	RAF(now => {draw_chars(); t = now}) //minimal latency for 1st frame
 	set_play(true) //Welcome to The Matrix
