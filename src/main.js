@@ -23,12 +23,12 @@ const settings = {
 	mode : true,
 	//🌈RYGCBM
 	colors : [ 'f00','ff0','0f0','0ff','00f','f0f' ],
-	//not using `Intl.Segmenter`, because grapheme clusters can be rendered with ANY size.
+	//not using `Intl.Segmenter`, because grapheme clusters can be rendered at *ANY* size.
 	//supporting code-points instead of code-units is easier and less buggy.
 	charset : [...'!?"\'`#$%&()[]{}*+-,./\\|:;<=>@^_~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'],
-	speed : 24,//Hz of new chars drawn, no-op for dimming
-	zoom : 32,//px of grid squares
-	min_col : 6, max_col: 14, //wtf
+	speed_Hz : 24,//should only affect `draw_chars`, no-op for dimming
+	zoom_px : 32,//grid square size
+	min_y : 6, max_y: 14, //wtf
 	dim_factor : 1, //dimming coefficient
 	resize_delay : 1500//ms
 }
@@ -37,7 +37,7 @@ const toggle_play = ()=>{
 	playing = !playing
 	if (playing) {
 		//the interval ensures `drawChars` is independent of FPS
-		it_ID = setInterval( draw_chars, Hz_to_ms(settings.speed) )
+		it_ID = setInterval( draw_chars, Hz_to_ms(settings.speed_Hz) )
 		RAF( do_global_dimming )
 	}
 	else
@@ -54,7 +54,7 @@ const resize = ()=>
 	w = canv.width = doc.body.clientWidth
 	h = canv.height = doc.body.clientHeight
 	//calculate how many columns in the grid are needed to fill the whole canvas
-	const columns = Math.ceil(w / settings.zoom)
+	const columns = Math.ceil(w / settings.zoom_px)
 
 	const play = playing
 	set_play(false) //prevent memory/CPU leak caused by race condition
@@ -74,7 +74,7 @@ const resize = ()=>
 
 const draw_chars = ()=>
 {
-	const {mode, colors, zoom, charset} = settings
+	const {mode, colors, zoom_px: zoom, charset} = settings
 
 	if (!mode) {
 		ctx.fillStyle = '#' + colors[color_i++]
@@ -83,7 +83,7 @@ const draw_chars = ()=>
 
 	ctx.font = `bold ${zoom}px monospace`
 
-	//according to MDN docs, `forEach` seems to be safe here (I guess)
+	//according to MDN docs, `forEach` seems to be thread-safe here (I guess)
 	heights.forEach((y, i) => {
 		const color = colors[color_i_ls[i]]
 
@@ -94,7 +94,7 @@ const draw_chars = ()=>
 		ctx.fillText( charset[rand], x, y )
 
 		//range is arbitrary, we have freedom to use powers of 2 for performance
-		rand = randRange( 1 << settings.min_col, 1 << settings.max_col )>>>0
+		rand = randRange( 1 << settings.min_y, 1 << settings.max_y )>>>0
 		y = heights[i] = y > rand ? 0 : y + zoom
 		//if column has been reset, pick next color
 		if (!y) color_i_ls[i] = (color_i_ls[i] + 1) % colors.length
