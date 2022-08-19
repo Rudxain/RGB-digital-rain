@@ -1,7 +1,5 @@
 # RGB-DR
-[![GitHub Super-Linter](https://github.com/Rudxain/RGB-digital-rain/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
-
-<img alt='RYGCBM colored vertical stripes' src=res/icon.svg width=25% height=25%>
+<img alt='RYGCBM colored vertical stripes' src=res/icon.svg width=50% height=50%>
 
 # ▶️Demo
 ## Desktop
