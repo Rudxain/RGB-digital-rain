@@ -18,18 +18,20 @@ required to keep a consistent trail color
 @type {number[]}
 */const color_i_ls = []
 
-const light_query = window.matchMedia?.('(prefers-color-scheme: light)')
+const light_query = matchMedia?.('(prefers-color-scheme: light)')
 //dark must act as default, so light is optional
 let is_dark = !light_query?.matches
 
 const settings = {
 	//🌈RYGCBM
 	colors: ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],
-	//not using `Intl.Segmenter`, because grapheme clusters can be rendered at *ANY* size.
-	//supporting code-points instead of code-units is easier and less buggy.
-	charset: [...'!?"\'`#$%&()[]{}*+-,./\\|:;<=>@^_~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'],
+	charset:
+		'0123456789' +
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+		'abcdefghijklmnopqrstuvwxyz' +
+		'!?"\'`#$%&()[]{}*+-,./\\|:;<=>@^_~',
 	speed_Hz: 24,//should only affect `draw_chars`, no-op for dimming
-	grid_px: 32,//grid size
+	grid_px: 0x20,//grid size
 	min_y: 6, max_y: 14,
 	dim_factor: 1 * (is_dark ? 1 : -1), //dimming coefficient
 	resize_delay_ms: 1500
