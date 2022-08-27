@@ -9,21 +9,6 @@ const RGBDR_anim = (() => {
 	/**@type {CanvasRenderingContext2D}*/
 	const ctx = canv.getContext('2d', { alpha: false, desynchronized: true })
 
-	/**
-	list of y values (px, not grid) of last drawn chars
-	@type {number[]}
-	*/const height_ls = []
-
-	/**
-	list of color indices (pointers)
-	required to keep a consistent trail color
-	@type {number[]}
-	*/const color_i_ls = []
-
-	const light_query = matchMedia?.('(prefers-color-scheme: light)')
-	//dark must act as default, so light is optional
-	let is_dark = !light_query?.matches
-
 	const anim = (() => {
 		let playing = false
 
@@ -42,7 +27,7 @@ const RGBDR_anim = (() => {
 					const Hz_to_ms = f => 1000 / f
 					//the interval ensures `drawChars` is independent of FPS
 					it_ID = setInterval(draw_chars, Hz_to_ms(anim.settings.speed_Hz))
-					RAF(do_global_dimming)
+					RAF(full_dimmer)
 				}
 				if (prev && !b)
 					clearInterval(it_ID)
@@ -50,6 +35,10 @@ const RGBDR_anim = (() => {
 		}
 		return anim
 	})()
+
+	const light_query = matchMedia?.('(prefers-color-scheme: light)')
+	//dark must act as default, so light is optional
+	let is_dark = !light_query?.matches
 
 	anim.settings = {
 		//🌈RYGCBM
@@ -65,6 +54,17 @@ const RGBDR_anim = (() => {
 		dim_factor: 1 * (is_dark ? 1 : -1), //dimming coefficient
 		resize_delay_ms: 1500
 	}
+
+	/**
+	list of y values (px, not grid) of last drawn chars
+	@type {number[]}
+	*/const height_ls = []
+
+	/**
+	list of color indices (pointers)
+	required to keep a consistent trail color
+	@type {number[]}
+	*/const color_i_ls = []
 
 	const resize = () => {
 		canv.width = DOC.body.clientWidth
@@ -111,13 +111,13 @@ const RGBDR_anim = (() => {
 		})
 	}
 
-	let t = 0 //IDK how to make this private/local and static
+	let t = 0
 
 	/**
 	AKA "trail fader"
 	@param {number} now
 	*/
-	const do_global_dimming = now => {
+	const full_dimmer = now => {
 		if (!anim.playing) return
 
 		let { dim_factor } = anim.settings
@@ -136,7 +136,7 @@ const RGBDR_anim = (() => {
 			//...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			t = now
 		}
-		RAF(do_global_dimming)
+		RAF(full_dimmer)
 	}
 
 	const main = () => {
