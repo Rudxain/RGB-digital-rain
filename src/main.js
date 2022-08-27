@@ -1,4 +1,5 @@
 'use strict'
+//global/public, for debugging/testing purposes
 const RGBDR_anim = (() => {
 	const RAF = requestAnimationFrame, DOC = document
 
