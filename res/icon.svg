@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 13 13" style="background-color:#000" xmlns="http://www.w3.org/2000/svg">
-	<rect width="13" height="13"/><!--BG-->
+	<!--BG-->
+	<rect width="13" height="13" />
 	<!--stripes-->
-	<path d="M1.5,1 v11" stroke="#f00"/>
-	<path d="M3.5,1 v11" stroke="#ff0"/>
-	<path d="M5.5,1 v11" stroke="#0f0"/>
-	<path d="M7.5,1 v11" stroke="#0ff"/>
-	<path d="M9.5,1 v11" stroke="#00f"/>
-	<path d="M11.5,1 v11" stroke="#f0f"/>
+	<path d="M1.5,1 v11" stroke="#f00" />
+	<path d="M3.5,1 v11" stroke="#ff0" />
+	<path d="M5.5,1 v11" stroke="#0f0" />
+	<path d="M7.5,1 v11" stroke="#0ff" />
+	<path d="M9.5,1 v11" stroke="#00f" />
+	<path d="M11.5,1 v11" stroke="#f0f" />
 	<!--mask-->
-	<path d="M0,2.5 h13 M0,4.5 h13 M0,6.5 h13 M0,8.5 h13 M0,10.5 h13" stroke="#000"/>
+	<path d="M0,2.5 h13 M0,4.5 h13 M0,6.5 h13 M0,8.5 h13 M0,10.5 h13" stroke="#000" />
 	<!--dimmer-->
-	<rect x="1" y="1" width="11" height="6" fill="#0007"/><!--banes jomd-->
+	<rect x="1" y="1" width="11" height="6" fill="#0007" /><!--banes jomd-->
 </svg>
