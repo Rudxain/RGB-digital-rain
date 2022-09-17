@@ -1,5 +1,7 @@
 # RGB-DR
+<div align=center>
 <img alt='RYGCBM colored vertical stripes' src=res/icon.svg width=50% height=50%>
+</div>
 
 # ▶️Demo
 ## Desktop
