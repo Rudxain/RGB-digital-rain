@@ -5,8 +5,6 @@ const RGBDR_anim = (() => {
 
 	/**@type {HTMLCanvasElement}*/
 	const canv = DOC.getElementById('c')
-
-	/**@type {CanvasRenderingContext2D}*/
 	const ctx = canv.getContext('2d', { alpha: false, desynchronized: true })
 
 	const anim = (() => {
