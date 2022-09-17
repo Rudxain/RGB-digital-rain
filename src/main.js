@@ -10,9 +10,8 @@ const RGBDR_anim = (() => {
 	const anim = (() => {
 		let playing = false
 
-		/**
-		@type {undefined|number}
-		*/let it_ID
+		/**@type {undefined|number}*/
+		let it_ID
 
 		const anim = {
 			get playing() { return playing },
