@@ -100,6 +100,14 @@ const RGBDR_anim = (() => {
 		const prev = anim.playing
 		anim.playing = false //prevent memory/CPU leak caused by race condition
 
+		const sleep = (/**@type {number|undefined}*/ ms) => new Promise(_ => setTimeout(_, ms))
+		/*
+		wait until the current frame is drawn.
+		this is a temporary patch, because I have no idea what I'm doing, lol.
+		I should be using some sort of mutex, or semaphore, or maybe pass a message between fns.
+		*/
+		sleep(0x40)
+
 		while (height_ls.length < columns)
 			height_ls.push(0)
 		height_ls.length = columns //shrink and deallocate, if necessary
@@ -159,6 +167,10 @@ const RGBDR_anim = (() => {
 			dim = Math.round(Math.min((now - t) * Math.abs(df), 0xff))
 
 		{
+			/**
+			Check if `x` is `-0`
+			@param {*} x
+			*/
 			const is_neg_zero = x => x === 0 && 1 / x == -Infinity
 
 			/**
