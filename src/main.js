@@ -186,11 +186,10 @@ const RGBDR_anim = (() => {
 			const HEX_TABLE = '0123456789abcdef'
 
 			/**
-			coerce `x` to u8, then hex-encode it,
-			such that nibble-pair-count <= `B`
+			coerce `x` to u8, then hex-encode it with padding
 			@param {number} x
 			*/
-			const hex_byte = x => (x &= 0xff, HEX_TABLE[x >> 4] + HEX_TABLE[x & 0xf])
+			const hex_byte = x => HEX_TABLE[(x & 0xff) >> 4] + HEX_TABLE[x & 0xf]
 
 			ctx.fillStyle = `#${Math.sign(df) < 0 ? 'ffffff' : '000000'}${hex_byte(dim)}`
 			ctx.fillRect(0, 0, canv.width, canv.height)
