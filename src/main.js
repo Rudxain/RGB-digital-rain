@@ -162,13 +162,15 @@ const RGBDR_anim = (() => {
 	const full_dimmer = now => {
 		if (!anim.playing) return
 
-		const
-			df = anim.settings.dim_factor, //avoid race condition, and short alias
-			dim = Math.round(Math.min((now - t) * Math.abs(df), 0xff))
+		//avoid race condition, and get a shorter alias
+		const df = anim.settings.dim_factor
+
+		/** u8 that specifies how much to dim the canvas */
+		const dim = Math.round(Math.min((now - t) * Math.abs(df), 0xff))
 
 		{
 			/**
-			Check if `x` is `-0`
+			Check if `x` is `-0`, without `Object.is`, for purity.
 			@param {*} x
 			*/
 			const is_neg_zero = x => x === 0 && 1 / x == -Infinity
