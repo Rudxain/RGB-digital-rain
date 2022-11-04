@@ -1,3 +1,4 @@
+//@ts-check
 'use strict'
 //global/public, for debugging/testing purposes
 const RGBDR_anim = (() => {
@@ -21,6 +22,11 @@ const RGBDR_anim = (() => {
 				playing = b
 
 				if (!prev && b) {
+					/**
+					Convert Hertz to corresponding mili-seconds
+					@param {number} f frequency
+					@return interval
+					*/
 					const Hz_to_ms = f => 1000 / f
 					//the interval ensures `drawChars` is independent of FPS
 					it_ID = setInterval(draw_chars, Hz_to_ms(anim.settings.speed_Hz))
@@ -39,16 +45,19 @@ const RGBDR_anim = (() => {
 
 	anim.settings = {
 		//🌈RYGCBM
-		colors: ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],
+		colors: ['f00','ff0','0f0','0ff','00f','f0f'],
 		charset:
 			'0123456789' +
 			'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
 			'abcdefghijklmnopqrstuvwxyz' +
 			'!?"\'`#$%&()[]{}*+-,./\\|:;<=>@^_~',
-		speed_Hz: 24,//should only affect `draw_chars`, no-op for dimming
-		grid_px: 0x20,//grid size
+		/** should only affect `draw_chars`, no-op for dimming */
+		speed_Hz: 24,
+		/** grid size */
+		grid_px: 0x20,
 		min_y: 6, max_y: 14,
-		dim_factor: 1 * (is_dark ? 1 : -1), //dimming coefficient
+		/** dimming coefficient */
+		dim_factor: 1 * (is_dark ? 1 : -1),
 		resize_delay_ms: 1500
 	}
 
@@ -72,11 +81,11 @@ const RGBDR_anim = (() => {
 		const prev = anim.playing
 		anim.playing = false //prevent memory/CPU leak caused by race condition
 
-		while (columns > height_ls.length)
+		while (height_ls.length < columns)
 			height_ls.push(0)
 		height_ls.length = columns //shrink and deallocate, if necessary
 
-		while (columns > color_i_ls.length)
+		while (color_i_ls.length < columns)
 			color_i_ls.push(color_i_ls.length % anim.settings.colors.length)
 		color_i_ls.length = columns
 
@@ -88,6 +97,7 @@ const RGBDR_anim = (() => {
 
 		ctx.font = `bold ${grid_px}px monospace`
 
+		/** Returns a pseudorandom unsigned 32bit int. */
 		const rand_u32 = (min = 0, max = 2 ** 32) => (Math.random() * (max - min) + min) >>> 0
 
 		//according to MDN docs, `forEach` seems to be thread-safe here (I guess)
@@ -108,6 +118,7 @@ const RGBDR_anim = (() => {
 		})
 	}
 
+	/** hi-precision timestamp */
 	let t = 0
 
 	/**
@@ -117,18 +128,22 @@ const RGBDR_anim = (() => {
 	const full_dimmer = now => {
 		if (!anim.playing) return
 
-		let { dim_factor } = anim.settings
-		const sgn = Math.sign(dim_factor)
-		dim_factor = Math.abs(dim_factor)
-
-		const dim = Math.round(Math.min((now - t) * dim_factor, 0xff))
+		const
+			df = anim.settings.dim_factor, //avoid race condition, and short alias
+			dim = Math.round(Math.min((now - t) * Math.abs(df), 0xff))
 
 		//performance...
 		if (dim) {
-			//convert to u32 and return a B16 str whose max byte length is `B`
-			const hexPad = (x = 0, B = 4) => (x >>> 0).toString(0x10).padStart(B << 1, '0')
+			const HEX_TABLE = '0123456789abcdef'
 
-			ctx.fillStyle = `#${sgn < 0 ? 'ffffff' : '000000'}${hexPad(dim, 1)}`
+			/**
+			coerce `x` to u8, then hex-encode it,
+			such that nibble-pair-count <= `B`
+			@param {number} x
+			*/
+			const hex_byte = x => (x &= 0xff, HEX_TABLE[x >> 4] + HEX_TABLE[x & 0xf])
+
+			ctx.fillStyle = `#${Math.sign(df) < 0 ? 'ffffff' : '000000'}${hex_byte(dim)}`
 			ctx.fillRect(0, 0, canv.width, canv.height)
 			//...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			t = now
@@ -139,7 +154,7 @@ const RGBDR_anim = (() => {
 	const main = () => {
 		resize() //not part of anim, and has some latency, so no RAF
 
-		ctx.fillStyle = '#' + (anim.settings.dim_factor < 0 ? 'fff' : '000')
+		ctx.fillStyle = anim.settings.dim_factor < 0 ? '#fff' : '#000'
 		ctx.fillRect(0, 0, canv.width, canv.height)
 
 		RAF(now => { draw_chars(); t = now }) //minimal latency for 1st frame
@@ -160,6 +175,7 @@ const RGBDR_anim = (() => {
 		})
 	}
 
+	// @ts-ignore
 	if (typeof require == 'undefined' && typeof WorkerGlobalScope == 'undefined')
 		main()
 
