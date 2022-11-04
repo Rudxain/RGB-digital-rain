@@ -133,7 +133,7 @@ const RGBDR_anim = (() => {
 		Get a pseudo-random UTF-16 code-unit from a `string`.
 		@param {string} s
 		*/
-		const rand_CU_pick = s => s[rng() * s.length]
+		const rand_CU_pick = s => s[rng() * s.length >>> 0]
 
 		//according to MDN docs, `forEach` seems to be thread-safe here (I guess)
 		height_ls.forEach((y, i) => {
