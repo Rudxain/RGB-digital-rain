@@ -106,7 +106,7 @@ const RGBDR_anim = (() => {
 		this is a temporary patch, because I have no idea what I'm doing, lol.
 		I should be using some sort of mutex, or semaphore, or maybe pass a message between fns.
 		*/
-		sleep(0x40)
+		sleep(height_ls.length / 4)
 
 		while (height_ls.length < columns)
 			height_ls.push(0)
@@ -193,7 +193,9 @@ const RGBDR_anim = (() => {
 			*/
 			const hex_byte = x => HEX_TABLE[(x & 0xff) >> 4] + HEX_TABLE[x & 0xf]
 
-			ctx.fillStyle = `#${Math.sign(df) < 0 ? 'ffffff' : '000000'}${hex_byte(dim)}`
+			//does hex really has better performance here?
+			//should I change it to `rgb()` or `hsl()`?
+			ctx.fillStyle = `#${df < 0 ? 'ffffff' : '000000'}${hex_byte(dim)}`
 			ctx.fillRect(0, 0, canv.width, canv.height)
 			//...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			t = now
