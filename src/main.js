@@ -100,13 +100,13 @@ const RGBDR_anim = (() => {
 		const prev = anim.playing
 		anim.playing = false //prevent memory/CPU leak caused by race condition
 
-		const sleep = (/**@type {number|undefined}*/ ms) => await new Promise(_ => setTimeout(_, ms))
+		const sleep = (/**@type {number|undefined}*/ ms) => new Promise(_ => setTimeout(_, ms))
 		/*
 		wait until the current frame is drawn.
 		this is a temporary patch, because I have no idea what I'm doing, lol.
 		I should be using some sort of mutex, or semaphore, or maybe pass a message between fns.
 		*/
-		sleep(height_ls.length / 4)
+		//sleep(height_ls.length / 4) //this won't work if no await
 
 		while (height_ls.length < columns)
 			height_ls.push(0)
