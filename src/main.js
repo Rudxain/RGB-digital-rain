@@ -1,19 +1,17 @@
 //@ts-check
 'use strict'
-//global/public, for debugging/testing purposes
+// global/public, for debugging/testing purposes
 const RGBDR_anim = (() => {
 	const DOC = document, RAF = requestAnimationFrame
 
-	const canv = DOC.getElementById('c')
-	if (!(canv instanceof HTMLCanvasElement)) //shut-up TS-check
-		throw new TypeError('bruh, `canv` is not a Canvas')
+	const canv = /**@type {HTMLCanvasElement}*/(DOC.getElementById('c'))
 
-	const ctx = canv.getContext('2d', { alpha: false, desynchronized: true })
-	if (!(ctx instanceof CanvasRenderingContext2D)) //shut-up TS-check
-		throw new TypeError('bruh, `ctx` is not a Context')
+	const ctx = /**@type {CanvasRenderingContext2D}*/(
+		canv.getContext('2d', { alpha: false, desynchronized: true })
+	)
 
 	const light_query = matchMedia?.('(prefers-color-scheme: light)')
-	//dark must act as default, so light is optional
+	// dark must act as default, so light is optional
 	let is_dark = !light_query?.matches
 
 	const anim = (() => {
@@ -38,7 +36,7 @@ const RGBDR_anim = (() => {
 					@return interval
 					*/
 					const Hz_to_ms = f => 1000 / f
-					//the interval ensures `drawChars` is independent of FPS
+					// the interval ensures `drawChars` is independent of FPS
 					it_ID = setInterval(draw_chars, Hz_to_ms(a.settings.char_speed_Hz))
 					RAF(full_dimmer)
 				}
@@ -52,7 +50,7 @@ const RGBDR_anim = (() => {
 			*/
 			settings: {
 				/** `Array` of CSS hex colors */
-				colors: ['f00','ff0','0f0','0ff','00f','f0f'],//🌈RYGCBM
+				colors: ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],//🌈RYGCBM
 				/** character-set/alphabet */
 				charset:
 					'0123456789' +
@@ -94,29 +92,29 @@ const RGBDR_anim = (() => {
 	const resize = () => {
 		canv.width = DOC.body.clientWidth
 		canv.height = DOC.body.clientHeight
-		//calculate how many columns in the grid are necessary to fill the whole canvas
+		// calculate how many columns in the grid are necessary to fill the whole canvas
 		const columns = Math.ceil(canv.width / anim.settings.grid_px)
 
 		const prev = anim.playing
-		anim.playing = false //prevent memory/CPU leak caused by race condition
+		anim.playing = false // prevent memory/CPU leak caused by race condition
 
-		const sleep = (/**@type {number|undefined}*/ ms) => new Promise(_ => setTimeout(_, ms))
+		//const sleep = (/**@type {number|undefined}*/ ms) => new Promise(_ => setTimeout(_, ms))
 		/*
 		wait until the current frame is drawn.
 		this is a temporary patch, because I have no idea what I'm doing, lol.
 		I should be using some sort of mutex, or semaphore, or maybe pass a message between fns.
 		*/
-		//sleep(height_ls.length / 4) //this won't work if no await
+		//sleep(height_ls.length / 4) // this won't work if no await
 
 		while (height_ls.length < columns)
 			height_ls.push(0)
-		height_ls.length = columns //shrink and deallocate, if necessary
+		height_ls.length = columns // shrink and deallocate, if necessary
 
 		while (color_i_ls.length < columns)
 			color_i_ls.push(color_i_ls.length % anim.settings.colors.length)
 		color_i_ls.length = columns
 
-		anim.playing = prev //revert to previous play-state
+		anim.playing = prev // revert to previous play-state
 	}
 
 	const draw_chars = () => {
@@ -126,8 +124,8 @@ const RGBDR_anim = (() => {
 
 		ctx.font = `bold ${grid_px}px monospace`
 
-		/** Returns a pseudo-random unsigned 32bit int. */
-		const rng_u32 = (min = 0, max = 2 ** 32) => (rng() * (max - min) + min) >>> 0
+		/** Returns a pseudorandom 32-bit unsigned integer between `min` and `max`. */
+		const randomUint32 = (min = 0, max = 2 ** 32) => (rng() * (max - min) + min) >>> 0
 
 		/**
 		Get a pseudo-random UTF-16 code-unit from a `string`.
@@ -135,7 +133,7 @@ const RGBDR_anim = (() => {
 		*/
 		const rand_CU_pick = s => s[rng() * s.length >>> 0]
 
-		//according to MDN docs, `forEach` seems to be thread-safe here (I guess)
+		// according to MDN docs, `forEach` seems to be thread-safe here (I guess)
 		height_ls.forEach((y, i) => {
 			const color = colors[color_i_ls[i]]
 
@@ -144,10 +142,10 @@ const RGBDR_anim = (() => {
 			const x = i * grid_px
 			ctx.fillText(rand_CU_pick(charset), x, y)
 
-			//range is arbitrary, we have freedom to use powers of 2, for performance
-			const rand = rng_u32(1 << anim.settings.min_y, 1 << anim.settings.max_y)
+			// range is arbitrary, we have freedom to use powers of 2, for performance
+			const rand = randomUint32(1 << anim.settings.min_y, 1 << anim.settings.max_y)
 			y = height_ls[i] = y > rand ? 0 : y + grid_px
-			//if column has been reset, pick next color
+			// if column has been reset, pick next color
 			if (!y) color_i_ls[i] = (color_i_ls[i] + 1) % colors.length
 		})
 	}
@@ -162,7 +160,7 @@ const RGBDR_anim = (() => {
 	const full_dimmer = now => {
 		if (!anim.playing) return
 
-		//avoid race condition, and get a shorter alias
+		// avoid race condition, and get a shorter alias
 		const df = anim.settings.dim_factor
 
 		/** u8 that specifies how much to dim the canvas */
@@ -183,7 +181,7 @@ const RGBDR_anim = (() => {
 			console.assert(is_u8(dim))
 		}
 
-		//performance...
+		// performance...
 		if (dim) {
 			const HEX_TABLE = '0123456789abcdef'
 
@@ -193,23 +191,23 @@ const RGBDR_anim = (() => {
 			*/
 			const hex_byte = x => HEX_TABLE[(x & 0xff) >> 4] + HEX_TABLE[x & 0xf]
 
-			//does hex really has better performance here?
-			//should I change it to `rgb()` or `hsl()`?
+			// does hex really has better performance here?
+			// should I change it to `rgb()` or `hsl()`?
 			ctx.fillStyle = `#${df < 0 ? 'ffffff' : '000000'}${hex_byte(dim)}`
 			ctx.fillRect(0, 0, canv.width, canv.height)
-			//...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
+			// ...and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			t = now
 		}
 		RAF(full_dimmer)
 	}
 
 	const main = () => {
-		resize() //not part of anim, and has some latency, so no RAF
+		resize() // not part of anim, and has some latency, so no RAF
 
 		ctx.fillStyle = anim.settings.dim_factor < 0 ? '#fff' : '#000'
 		ctx.fillRect(0, 0, canv.width, canv.height)
 
-		//minimal latency for 1st frame
+		// minimal latency for 1st frame
 		RAF(now => { draw_chars(); t = now })
 		anim.playing = true
 
