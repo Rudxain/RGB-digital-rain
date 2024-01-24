@@ -18,20 +18,11 @@
 "background_color": "#000",
 "theme_color": "#0f0",
 "display": "fullscreen",
-"screenshots": [
-	{
-		"src": "/res/demo_horizontal.png",
+"screenshots": [{
+		"src": "/res/demo.png",
 		"type": "image/png",
 		"sizes": "1920x1080",
 		"platform": "wide",
-		"label": "Desktop demo of RGB digital rain"
-	},
-	{
-		"src": "/res/demo_vertical.png",
-		"type": "image/png",
-		"sizes": "720x1280",
-		"platform": "narrow",
-		"label": "Mobile demo of RGB digital rain"
-	}
-]
+		"label": "Demo of RGB-DR"
+	}]
 }
