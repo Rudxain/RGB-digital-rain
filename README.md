@@ -4,10 +4,7 @@
 </div>
 
 ## ▶️Demo
-### Desktop
-![](res/demo_horizontal.png)
-### Mobile
-![](res/demo_vertical.png)
+![](res/demo.png)
 
 ## ℹUsage
 You can [go to the website](https://Rudxain.github.io/RGB-digital-rain), or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch as a zip. If you downloaded the zip, then extract it, then open `src/index.html` in your 🌐browser of choice.
