@@ -131,7 +131,7 @@ const RGBDR_anim = (() => {
 		}
 
 		/**
-		Sets/Resets the props. Useful for [pooling](https://en.wikipedia.org/wiki/Object_pool_pattern).
+		Sets/Resets the props
 		@param {number} x finite
 		@param {number} y finite
 		@param {number} max_y finite
@@ -221,8 +221,8 @@ const RGBDR_anim = (() => {
 				if (droplet.y > droplet.max_y) {
 					const col = rand_pick(colors)
 					droplet.init(
-						rand_U32(0, canv.width),
-						rng(),
+						rng() * canv.width,
+						rng() * size,
 						rand_U32(canv.height * 3 / 4, canv.height + size),
 						col
 					)
@@ -285,7 +285,7 @@ const RGBDR_anim = (() => {
 
 		droplet_ls.forEach((d, i) => d.init(
 			i * size, // uniformity
-			rng(), // details ✨
+			rng() * size, // details ✨
 			rand_U32(canv.height * 3 / 4, canv.height + size),
 			colors[i % colors.length] // everyone will be used
 		))
