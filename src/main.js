@@ -272,7 +272,7 @@ const RGBDR_anim = (() => {
 	@param {DOMHighResTimeStamp} now
 	*/
 	const new_frame = now => {
-		if (!anim.playing) return;
+		if (!anim.playing) return
 		// this must run 1st,
 		// otherwise all frames would be darker than intended
 		full_dimmer(now)
