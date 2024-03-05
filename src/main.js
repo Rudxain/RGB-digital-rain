@@ -1,7 +1,14 @@
 //@ts-check
 'use strict'
 // global/public, for debugging/testing purposes
+/*exported RGBDR_anim*/
 const RGBDR_anim = (() => {
+	const
+		/** Maximum `Uint8` */
+		MAX_U8 = 0xff,
+		/** Maximum `Uint32` + 1 */
+		POW2_32 = 2 ** 32 //eslint-disable-line no-magic-numbers
+
 	/**
 	@param {number} n
 	*/
@@ -18,7 +25,8 @@ const RGBDR_anim = (() => {
 	@param min inclusive
 	@param max exclusive
 	*/
-	const rand_U32 = (min = 0, max = 2 ** 32) => (rng() * (max - min) + min) >>> 0
+	const rand_U32 = (min = 0, max = POW2_32) =>
+		(rng() * (max - min) + min) >>> 0
 
 	/**
 	Get an element at a pseudo-random index
@@ -39,7 +47,7 @@ const RGBDR_anim = (() => {
 	@param {number} f frequency
 	@return interval
 	*/
-	const Hz_to_ms = f => 1000 / f
+	const Hz_to_ms = f => 1000 / f //eslint-disable-line no-magic-numbers
 
 	const
 		doc = document,
@@ -107,7 +115,7 @@ const RGBDR_anim = (() => {
 				/** ratio to multiply with canvas dimensions */
 				droplet_rel_size: 1 / DROPLET_DENSITY,
 				/** dimming coefficient */
-				dim_factor: 3 / 4 * (is_dark ? 1 : -1),
+				dim_factor: 3 / 4 * (is_dark ? 1 : -1),//eslint-disable-line no-magic-numbers
 				/** miliseconds to debounce until `resize` is called */
 				resize_delay_ms: 250
 			}
@@ -247,11 +255,12 @@ const RGBDR_anim = (() => {
 
 		/** u8 that specifies how much to dim the canvas */
 		const dim = Math.round(
-			Math.min((now - last_dim) * Math.abs(df), 0xff)
+			Math.min((now - last_dim) * Math.abs(df), MAX_U8)
 		)
 
 		// performance [0]...
 		if (dim) {
+			//eslint-disable-next-line no-magic-numbers
 			ctx_fillFull((df < 0 ? 'ffffff' : '000000') + dim.toString(0x10).padStart(2, '0'))
 			// [0]... and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			last_dim = now
