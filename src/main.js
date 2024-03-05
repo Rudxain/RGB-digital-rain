@@ -246,7 +246,9 @@ const RGBDR_anim = (() => {
 		const df = anim.settings.dim_factor
 
 		/** u8 that specifies how much to dim the canvas */
-		const dim = Math.round(Math.min((now - last_dim) * Math.abs(df), 0xff))
+		const dim = Math.round(
+			Math.min((now - last_dim) * Math.abs(df), 0xff)
+		)
 
 		// performance [0]...
 		if (dim) {
