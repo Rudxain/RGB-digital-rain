@@ -25,10 +25,12 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm i eslint
+          npm i eslint # this should sync with package-lock
+          npm i @microsoft/eslint-formatter-sarif@2.1.7
       - name: Run ESLint
         run: npx eslint .
           --ext .js
+          --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
         continue-on-error: true
 
