@@ -187,9 +187,12 @@ const RGBDR_anim = (() => {
 	And set font-size accordingly
 	*/
 	const resize = () => {
+		const { clientWidth, clientHeight } = body
+		canv.style.width = clientWidth + 'px'
+		canv.style.height = clientHeight + 'px'
 		const scale = devicePixelRatio
-		canv.width = body.clientWidth * scale >>> 0
-		canv.height = body.clientHeight * scale >>> 0
+		canv.width = clientWidth * scale >>> 0
+		canv.height = clientHeight * scale >>> 0
 		// is normalization necessary?
 		//ctx.scale(scale, scale)
 		ctx.font = `bold ${get_droplet_size()}px monospace`
