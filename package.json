@@ -1,0 +1,21 @@
+{
+  "name": "rgb-digital-rain",
+  "version": "0.32.0",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rudxain/RGB-digital-rain.git"
+  },
+  "author": "Rudxain",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Rudxain/RGB-digital-rain/issues"
+  },
+  "homepage": "https://github.com/Rudxain/RGB-digital-rain#readme",
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  }
+}
