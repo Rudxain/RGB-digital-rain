@@ -1,4 +1,3 @@
-//@ts-check
 'use strict'
 // global/public, for debugging/testing purposes
 /*exported RGBDR_anim*/
@@ -21,6 +20,7 @@ const RGBDR_anim = (() => {
 	/**
 	@param {number} n
 	*/
+	//eslint-disable-next-line no-restricted-syntax
 	const range = function*(n) {
 		for (let i = 0; i < n; i++)
 			yield i

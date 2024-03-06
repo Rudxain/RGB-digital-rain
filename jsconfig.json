@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "None",
+    "checkJs": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
