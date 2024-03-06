@@ -67,13 +67,19 @@ const RGBDR_anim = (() => {
 			canv.getContext('2d', { alpha: false, desynchronized: true })
 		)
 
+	let
+		/** `canv.width` */
+		w = 1,
+		/** `canv.height` */
+		h = 1
+
 	/**
 	fills the entire `CanvasRenderingContext2D` with given `color`
 	@param {string} color hex without "#"
 	*/
 	const ctx_fillFull = color => {
 		ctx.fillStyle = '#' + color
-		ctx.fillRect(0, 0, canv.width, canv.height)
+		ctx.fillRect(0, 0, w, h)
 		// should it preserve the previous `fillStyle`?
 	}
 
@@ -177,11 +183,9 @@ const RGBDR_anim = (() => {
 
 			this.#x = x
 			this.#y = y
-			if (gen_max) {
-				const h = canv.height
+			if (gen_max)
 				//eslint-disable-next-line no-magic-numbers
 				this.#max_y = rand_U32(h * 3 / 4, h + droplet_abs_size)
-			}
 			this.#color = rand_pick(anim.settings.colors)
 			return this
 		}
@@ -189,7 +193,7 @@ const RGBDR_anim = (() => {
 		coords, `max_y` and `color` are random.
 		*/
 		init_auto() {
-			return this.init(rng() * canv.width, rng() * droplet_abs_size, true)
+			return this.init(rng() * w, rng() * droplet_abs_size, true)
 		}
 
 		get x() { return this.#x }
@@ -224,11 +228,11 @@ const RGBDR_anim = (() => {
 		canv.style.width = clientWidth + 'px'
 		canv.style.height = clientHeight + 'px'
 		const scale = devicePixelRatio
-		canv.width = clientWidth * scale >>> 0
-		canv.height = clientHeight * scale >>> 0
+		w = canv.width = clientWidth * scale >>> 0
+		h = canv.height = clientHeight * scale >>> 0
 		//ctx.scale(scale, scale) // is normalization necessary?
 		// should it be W, H, max(W,H), min(W,H), hypot(W,H), or sqrt(W * H)?
-		droplet_abs_size = anim.settings.droplet_rel_size * canv.height
+		droplet_abs_size = anim.settings.droplet_rel_size * w
 		ctx.font = `bold ${droplet_abs_size}px monospace`
 	}
 
@@ -276,7 +280,7 @@ const RGBDR_anim = (() => {
 		if (steps == 0)
 			return
 
-		const size = droplet_abs_size, h = canv.height
+		const size = droplet_abs_size
 
 		// the shallow-copy is needed because of `splice`,
 		// and because I'm too lazy to use a classic `for` loop
