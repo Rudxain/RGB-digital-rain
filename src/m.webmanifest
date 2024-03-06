@@ -1,28 +1,29 @@
 {
-"name": "RGB digital rain",
-"short_name": "RGB DigitRain",
-"description": "The Matrix \u0022falling code/letter rain\u0022 animation but RGB. No more monochromatic green!",
-"categories": [
-	"personalization",
-	"entertainment"
-],
-"start_url": "https://Rudxain.github.io/RGB-digital-rain",
-"lang": "en",
-"icons": [
-	{
-		"src": "../res/icon.svg",
-		"sizes": "any",
-		"type": "image/svg+xml"
-	}
-],
-"background_color": "#000",
-"theme_color": "#0f0",
-"display": "fullscreen",
-"screenshots": [{
-		"src": "/res/demo.png",
-		"type": "image/png",
-		"sizes": "1920x1080",
-		"platform": "wide",
-		"label": "Demo of RGB-DR"
-	}]
+	"name": "RGB digital rain",
+	"short_name": "RGB DigitRain",
+	"description": "The Matrix \u0022falling code/letter rain\u0022 animation but RGB. No more monochromatic green!",
+	"categories": [
+		"personalization",
+		"entertainment"
+	],
+	"start_url": "https://Rudxain.github.io/RGB-digital-rain",
+	"lang": "en",
+	"icons": [
+		{
+			"src": "/res/icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml"
+		}
+	],
+	"background_color": "#000",
+	"theme_color": "#0f0",
+	"display": "fullscreen",
+	"screenshots": [
+		{
+			"src": "/res/demo.png",
+			"type": "image/png",
+			"sizes": "1366x768",
+			"platform": "wide"
+		}
+	]
 }
