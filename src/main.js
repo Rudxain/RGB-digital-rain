@@ -9,6 +9,15 @@ const RGBDR_anim = (() => {
 		/** Maximum `Uint32` + 1 */
 		POW2_32 = 2 ** 32 //eslint-disable-line no-magic-numbers
 
+	/** `const isFinite` binding, for purity */
+	const not_inf_nan = isFinite
+
+	/**
+	checks if `x` is not finite
+	@param {number} x
+	*/
+	const is_inf_nan = x => !not_inf_nan(x)
+
 	/**
 	@param {number} n
 	*/
@@ -124,44 +133,63 @@ const RGBDR_anim = (() => {
 	})()
 
 	const Droplet = class {
+		/*
+		there's no `size` field,
+		because I want all droplets to share the same size,
+		even when that size changes at runtime.
+
+		I'm aware of the implications,
+		such as trails with old sizes,
+		and trail "self-overlay".
+		*/
 		#x
 		#y
+		/** expiration height */
 		#max_y
+		/**
+		Not a pointer to `settings.colors`,
+		because the droplet must hold a consistent color,
+		and a pointer could be invalidated at any time.
+		*/
 		#color
 		/**
-		Create with default props.
+		Create with default fields.
 		Use `init` to set them.
 		*/
 		constructor() {
 			this.#x = this.#y = 0
-			this.#max_y = 1
-			this.#color = '777' // visible in light and dark schemes
+			this.#max_y = MAX_U8
+			// visible in light and dark schemes,
+			// for easier debugging
+			this.#color = '777'
 		}
 
 		/**
-		Sets/Resets the props
+		Set `x` and `y` coordinates,
+		`max_y` is randomly-generated if `gen_max`,
+		`color` is randomly-picked from settings.
 		@param {number} x finite
 		@param {number} y finite
-		@param {number} max_y finite
-		@param {string} color 3 hexadecimal nibbles.
-
-		Not a pointer to `settings.colors`,
-		because the droplet must hold a consistent color,
-		and a pointer could become invalid at any time.
 		*/
-		init(x, y, max_y, color) {
-			if (!isFinite(x) || !isFinite(y))
+		init(x, y, gen_max = false) {
+			if (is_inf_nan(x) || is_inf_nan(y))
 				throw new RangeError(`invalid coords: x=${x} y=${y}`)
-			if (!isFinite(max_y) || y > max_y)
-				throw new RangeError(`invalid max_y: ${max_y}`)
-			if (! /^[a-f\d]{3}$/gi.test(color))
-				throw new RangeError(`invalid color: ${color}`)
 
 			this.#x = x
 			this.#y = y
-			this.#max_y = max_y
-			this.#color = color
+			if (gen_max) {
+				const h = canv.height
+				//eslint-disable-next-line no-magic-numbers
+				this.#max_y = rand_U32(h * 3 / 4, h + droplet_abs_size)
+			}
+			this.#color = rand_pick(anim.settings.colors)
 			return this
+		}
+		/**
+		coords, `max_y` and `color` are random.
+		*/
+		init_auto() {
+			return this.init(rng() * canv.width, rng() * droplet_abs_size, true)
 		}
 
 		get x() { return this.#x }
@@ -178,17 +206,14 @@ const RGBDR_anim = (() => {
 		inc_y(n) {
 			// don't do this at home, kids!
 			const y = this.#y += n
-			if (!isFinite(y))
+			if (is_inf_nan(y))
 				throw new RangeError(`${y}`)
 			return y
 		}
 	}
 
-	const get_droplet_size = () => anim.settings.droplet_rel_size * Math.max(canv.width, canv.height)
-
-	// pre-allocate.
-	// https://en.wikipedia.org/wiki/Object_pool_pattern
-	const droplet_ls = Array.from({ length: DROPLET_DENSITY }, () => new Droplet)
+	/** absolute pixel size */
+	let droplet_abs_size = 1
 
 	/**
 	Set `canv` dimensions to fill the full viewport.
@@ -201,47 +226,99 @@ const RGBDR_anim = (() => {
 		const scale = devicePixelRatio
 		canv.width = clientWidth * scale >>> 0
 		canv.height = clientHeight * scale >>> 0
-		// is normalization necessary?
-		//ctx.scale(scale, scale)
-		ctx.font = `bold ${get_droplet_size()}px monospace`
+		//ctx.scale(scale, scale) // is normalization necessary?
+		// should it be W, H, max(W,H), min(W,H), hypot(W,H), or sqrt(W * H)?
+		droplet_abs_size = anim.settings.droplet_rel_size * canv.height
+		ctx.font = `bold ${droplet_abs_size}px monospace`
+	}
+
+	/**
+	list of auto-generated `Droplet`s
+	*/
+	const droplets_auto =
+		// https://en.wikipedia.org/wiki/Object_pool_pattern
+		Array.from({
+			// div2 leaves enough room
+			// for the user to spawn new droplets
+			length: DROPLET_DENSITY >> 1
+		}, () => new Droplet)
+	/**
+	list of user-spawned `Droplet`s
+	@type {Droplet[]}
+	*/
+	const droplets_user = []
+
+	/**
+	fill a character randomly-picked from `charset`, into `ctx`.
+
+	unlike `fillText`, this is centered.
+	@param {number} x
+	@param {number} y
+	*/
+	const draw_char = (x, y) => {
+		/** why does `4` center but not `2`? */
+		const CENTERING_FACTOR = 4
+		const size = droplet_abs_size / CENTERING_FACTOR
+		ctx.fillText(rand_pick(anim.settings.charset), x - size, y + size)
 	}
 
 	/**
 	@param {DOMHighResTimeStamp} now
 	*/
 	const draw_droplets = now => {
-		// should it `ceil` instead of `trunc`?
-		const times = (now - last_drop) / Hz_to_ms(anim.settings.droplet_Hz) >>> 0
-		if (times == 0)
+		/**
+		max number of times to step per batch
+		*/
+		const steps =
+			// should it `ceil` instead of `trunc`?
+			(now - last_drop) / Hz_to_ms(anim.settings.droplet_Hz) >>> 0
+		// guard against hi-FPS and low-speed
+		if (steps == 0)
 			return
 
-		const
-			{ colors, charset } = anim.settings,
-			size = get_droplet_size()
+		const size = droplet_abs_size, h = canv.height
 
-		// according to MDN docs, `forEach` seems to be thread-safe here (I guess)
-		droplet_ls.forEach(droplet => {
+		// the shallow-copy is needed because of `splice`,
+		// and because I'm too lazy to use a classic `for` loop
+		// with mutable indices.
+		for (const [i, d] of [...droplets_user].entries()) {
 			// this is outside `for...of`
 			// to take advantage of batch-rendering
-			ctx.fillStyle = '#' + droplet.color
+			ctx.fillStyle = '#' + d.color
 
 			// unlock speed limit to go beyond FPS ⚡
-			for (const _ of range(times)) {
-				ctx.fillText(rand_pick(charset), droplet.x, droplet.y)
+			for (const _ of range(steps)) {
+				draw_char(d.x, d.y)
 
-				if (droplet.y > droplet.max_y) {
-					const col = rand_pick(colors)
-					droplet.init(
-						rng() * canv.width,
-						rng() * size,
-						rand_U32(canv.height * 3 / 4, canv.height + size),
-						col
-					)
-					ctx.fillStyle = '#' + col
+				// expire after going out-of-bounds
+				if (d.y > h) {
+					droplets_user.splice(i, 1)
+					// immediately stop processing `d`
+					break
 				}
-				else droplet.inc_y(size)
+				d.inc_y(size)
 			}
-		})
+		}
+		// according to MDN, this is thread-safe
+		for (const d of droplets_auto) {
+			ctx.fillStyle = '#' + d.color
+
+			for (const _ of range(steps)) {
+				draw_char(d.x, d.y)
+
+				if (d.y > d.max_y) {
+					d.init_auto()
+					/*
+					this isn't necessary,
+					but it adds an intentional delay
+					before processing the droplet's `init`ed version.
+					It also reduces the workload of each batch.
+					*/break
+				}
+				d.inc_y(size)
+			}
+		}
+
 		last_drop = now
 	}
 
@@ -290,25 +367,38 @@ const RGBDR_anim = (() => {
 	}
 
 	const main = () => {
-		resize() // not part of anim, and has some latency, so no RAF
-		const
-			{ dim_factor, colors } = anim.settings,
-			size = get_droplet_size()
+		// not part of anim, and has some latency, so no RAF
+		resize()
+		ctx_fillFull(anim.settings.dim_factor < 0 ? 'fff' : '000')
+		// these don't work as desired
+		//ctx.textAlign = 'center'
+		//ctx.textBaseline = 'middle'
 
-		ctx_fillFull(dim_factor < 0 ? 'fff' : '000')
+		for (const d of droplets_auto)
+			d.init_auto()
 
-		droplet_ls.forEach((d, i) => d.init(
-			i * size, // uniformity
-			rng() * size, // details ✨
-			rand_U32(canv.height * 3 / 4, canv.height + size),
-			colors[i % colors.length] // everyone will be used
-		))
 		anim.playing = true
+
+		canv.addEventListener('click', e => {
+			const scale = devicePixelRatio
+			droplets_user.push((new Droplet).init(
+				e.clientX * scale, e.clientY * scale
+			))
+			/*
+			Because of batch-rendering,
+			the droplet will wait to be drawn
+			together with all the other ones.
+
+			So the user will experience a delay
+			if the speed-setting is low
+			*/
+		})
 
 		/**
 		timeout ID, necessary to debounce `resize`
 		@type {undefined|number}
 		*/let tm_ID
+		// should this be attached to `body` rather than `window`?
 		addEventListener('resize', () => {
 			clearTimeout(tm_ID)
 			tm_ID = setTimeout(resize, anim.settings.resize_delay_ms)

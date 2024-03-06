@@ -14,14 +14,21 @@
         "ignore": [
           -1,
           0,
-          1
+          1,
+          2
         ],
         "ignoreArrayIndexes": true,
         "ignoreDefaultValues": true,
         "enforceConst": true
       }
     ],
-    "no-unused-vars": "off",
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_$",
+        "argsIgnorePattern": "^_$"
+      }
+    ],
     "no-implicit-globals": [
       "error",
       {
