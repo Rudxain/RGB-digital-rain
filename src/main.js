@@ -2,9 +2,6 @@
 // global/public, for debugging/testing purposes
 /*exported RGBDR_anim*/
 const RGBDR_anim = (() => {
-	let _ = 0
-	_ = ''
-
 	const
 		/** Maximum `Uint8` */
 		MAX_U8 = 0xff,
