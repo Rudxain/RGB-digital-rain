@@ -228,11 +228,14 @@ const RGBDR_anim = (() => {
 		canv.style.width = clientWidth + "px"
 		canv.style.height = clientHeight + "px"
 		const scale = devicePixelRatio
+		const save = ctx.getImageData(0, 0, w, h)
 		w = canv.width = clientWidth * scale >>> 0
 		h = canv.height = clientHeight * scale >>> 0
+		ctx.putImageData(save, 0, 0)
 		//ctx.scale(scale, scale) // is normalization necessary?
-		// should it be W, H, max(W,H), min(W,H), hypot(W,H), or sqrt(W * H)?
-		droplet_abs_size = anim.settings.droplet_rel_size * w
+
+		//issue #43
+		droplet_abs_size = anim.settings.droplet_rel_size * Math.min(w, h) * 2
 		ctx.font = `bold ${droplet_abs_size}px monospace`
 	}
 
