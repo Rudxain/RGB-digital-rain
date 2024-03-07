@@ -1,4 +1,5 @@
 {
+"lang": "en",
 "name": "RGB digital rain",
 "short_name": "RGB DigitRain",
 "description": "The Matrix \u0022falling code/letter rain\u0022 animation but RGB. No more monochromatic green!",
@@ -6,8 +7,6 @@
 	"personalization",
 	"entertainment"
 ],
-"start_url": "https://Rudxain.github.io/RGB-digital-rain",
-"lang": "en",
 "icons": [
 	{
 		"src": "../res/icon.svg",
