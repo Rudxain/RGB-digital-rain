@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 // global/public, for debugging/testing purposes
 /*exported RGBDR_anim*/
 const RGBDR_anim = (() => {
@@ -62,9 +62,9 @@ const RGBDR_anim = (() => {
 		doc = document,
 		body = doc.body,
 		RAF = requestAnimationFrame,
-		canv = /**@type {HTMLCanvasElement}*/(doc.getElementById('c')),
+		canv = /**@type {HTMLCanvasElement}*/(doc.getElementById("c")),
 		ctx = /**@type {CanvasRenderingContext2D}*/(
-			canv.getContext('2d', { alpha: false, desynchronized: true })
+			canv.getContext("2d", { alpha: false, desynchronized: true })
 		)
 
 	let
@@ -78,12 +78,12 @@ const RGBDR_anim = (() => {
 	@param {string} color hex without "#"
 	*/
 	const ctx_fillFull = color => {
-		ctx.fillStyle = '#' + color
+		ctx.fillStyle = "#" + color
 		ctx.fillRect(0, 0, w, h)
 		// should it preserve the previous `fillStyle`?
 	}
 
-	const light_query = matchMedia?.('(prefers-color-scheme: light)')
+	const light_query = matchMedia?.("(prefers-color-scheme: light)")
 	// dark must act as default, so light is optional
 	let is_dark = !light_query?.matches
 
@@ -115,16 +115,16 @@ const RGBDR_anim = (() => {
 			*/
 			settings: {
 				/** hex */
-				colors: ['f00', 'ff0', '0f0', '0ff', '00f', 'f0f'],//🌈RYGCBM
+				colors: ["f00", "ff0", "0f0", "0ff", "00f", "f0f"],//🌈RYGCBM
 				/**
 				character-set/alphabet.
 				must only contain codepoints, not grapheme-clusters,
 				because the latter can be rendered at any size.
 				*/
 				charset:
-					[...('0123456789' +
-						'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-						'abcdefghijklmnopqrstuvwxyz')],
+					[...("0123456789" +
+						"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+						"abcdefghijklmnopqrstuvwxyz")],
 				/** droplet falling speed */
 				droplet_Hz: 24,
 				/** ratio to multiply with canvas dimensions */
@@ -167,7 +167,7 @@ const RGBDR_anim = (() => {
 			this.#max_y = MAX_U8
 			// visible in light and dark schemes,
 			// for easier debugging
-			this.#color = '777'
+			this.#color = "777"
 		}
 
 		/**
@@ -225,8 +225,8 @@ const RGBDR_anim = (() => {
 	*/
 	const resize = () => {
 		const { clientWidth, clientHeight } = body
-		canv.style.width = clientWidth + 'px'
-		canv.style.height = clientHeight + 'px'
+		canv.style.width = clientWidth + "px"
+		canv.style.height = clientHeight + "px"
 		const scale = devicePixelRatio
 		w = canv.width = clientWidth * scale >>> 0
 		h = canv.height = clientHeight * scale >>> 0
@@ -288,7 +288,7 @@ const RGBDR_anim = (() => {
 		for (const [i, d] of [...droplets_user].entries()) {
 			// this is outside `for...of`
 			// to take advantage of batch-rendering
-			ctx.fillStyle = '#' + d.color
+			ctx.fillStyle = "#" + d.color
 
 			// unlock speed limit to go beyond FPS ⚡
 			for (const _ of range(steps)) {
@@ -305,7 +305,7 @@ const RGBDR_anim = (() => {
 		}
 		// according to MDN, this is thread-safe
 		for (const d of droplets_auto) {
-			ctx.fillStyle = '#' + d.color
+			ctx.fillStyle = "#" + d.color
 
 			for (const _ of range(steps)) {
 				draw_char(d.x, d.y)
@@ -342,7 +342,7 @@ const RGBDR_anim = (() => {
 		// performance [0]...
 		if (dim) {
 			//eslint-disable-next-line no-magic-numbers
-			ctx_fillFull((df < 0 ? 'ffffff' : '000000') + dim.toString(0x10).padStart(2, '0'))
+			ctx_fillFull((df < 0 ? "ffffff" : "000000") + dim.toString(0x10).padStart(2, "0"))
 			// [0]... and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			last_dim = now
 		}
@@ -373,7 +373,7 @@ const RGBDR_anim = (() => {
 	const main = () => {
 		// not part of anim, and has some latency, so no RAF
 		resize()
-		ctx_fillFull(anim.settings.dim_factor < 0 ? 'fff' : '000')
+		ctx_fillFull(anim.settings.dim_factor < 0 ? "fff" : "000")
 		// these don't work as desired
 		//ctx.textAlign = 'center'
 		//ctx.textBaseline = 'middle'
@@ -383,7 +383,7 @@ const RGBDR_anim = (() => {
 
 		anim.playing = true
 
-		canv.addEventListener('click', e => {
+		canv.addEventListener("click", e => {
 			const scale = devicePixelRatio
 			droplets_user.push((new Droplet).init(
 				e.clientX * scale, e.clientY * scale
@@ -403,12 +403,12 @@ const RGBDR_anim = (() => {
 		@type {undefined|number}
 		*/let tm_ID
 		// should this be attached to `body` rather than `window`?
-		addEventListener('resize', () => {
+		addEventListener("resize", () => {
 			clearTimeout(tm_ID)
 			tm_ID = setTimeout(resize, anim.settings.resize_delay_ms)
 		})
 
-		light_query?.addEventListener?.('change', e => {
+		light_query?.addEventListener?.("change", e => {
 			is_dark = !e.matches
 			// can't use alias, because we need live version
 			anim.settings.dim_factor = Math.abs(anim.settings.dim_factor) * (is_dark ? 1 : -1)
