@@ -5,9 +5,18 @@ body {
 	display: block
 }
 
-canvas {
+#c {
 	position: absolute;
 	left: 0;
 	top: 0;
-	image-rendering: pixelated
+	/*
+	blur looks "real",
+	I want this to look "more virtual"
+	*/
+	image-rendering: pixelated;
+	/*
+	disable 2-tap zoom
+	only on the interactive element
+	*/
+	touch-action: manipulation
 }
