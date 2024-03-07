@@ -10,20 +10,12 @@
 	"lang": "en",
 	"icons": [
 		{
-			"src": "/res/icon.svg",
+			"src": "../res/icon.svg",
 			"sizes": "any",
 			"type": "image/svg+xml"
 		}
 	],
 	"background_color": "#000",
 	"theme_color": "#0f0",
-	"display": "fullscreen",
-	"screenshots": [
-		{
-			"src": "/res/demo.png",
-			"type": "image/png",
-			"sizes": "1366x768",
-			"platform": "wide"
-		}
-	]
+	"display": "fullscreen"
 }
