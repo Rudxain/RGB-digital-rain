@@ -230,6 +230,7 @@ const RGBDR_anim = (() => {
 		const save = ctx.getImageData(0, 0, w, h)
 		w = canv.width = clientWidth * scale >>> 0
 		h = canv.height = clientHeight * scale >>> 0
+		ctx_fillFull(anim.settings.dim_factor < 0 ? "fff" : "000")
 		ctx.putImageData(save, 0, 0)
 		//ctx.scale(scale, scale) // is normalization necessary?
 
@@ -375,7 +376,6 @@ const RGBDR_anim = (() => {
 	const main = () => {
 		// not part of anim, and has some latency, so no RAF
 		resize()
-		ctx_fillFull(anim.settings.dim_factor < 0 ? "fff" : "000")
 		// these don't work as desired
 		//ctx.textAlign = 'center'
 		//ctx.textBaseline = 'middle'
