@@ -383,7 +383,12 @@ const RGBDR_anim = (() => {
 
 		anim.playing = true
 
-		canv.addEventListener("click", e => {
+		/*
+		To compensate for the batch-rendering latency,
+		we avoid "click".
+		For touch-input, this is identical to "click".
+		*/
+		canv.addEventListener("mousedown", e => {
 			const scale = devicePixelRatio
 			droplets_user.push((new Droplet).init(
 				e.clientX * scale, e.clientY * scale
