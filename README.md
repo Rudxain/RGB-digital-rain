@@ -13,7 +13,7 @@
 - 💻Responsive: efficient resizing, and native full-screen resolution
 
 ## ℹUsage
-You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) (minified), or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch (cutting-edge). If you downloaded the branch, then extract it, then open `src/index.html` on any 🌐browser.
+This `gl` branch is for switching to `WebGL` API. Code will be broken while I rewrite it.
 
 ## Naming?
 If you don't believe me, the "official" name is ["Digital Rain"](https://en.wikipedia.org/wiki/Matrix_digital_rain), even though the standard-de-facto is "falling code".
