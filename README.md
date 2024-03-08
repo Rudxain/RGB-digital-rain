@@ -9,8 +9,7 @@
 ## ⚙️Features
 - ⚡️Real-time auto 🔆light/🌙dark theme switching, with _transitioning_ ✨️
 - 👆Interactive: droplet spawning on 🖱click/touch
-- 💻Responsive: efficient resizing, without loss of pixel data
-- 📷HD: native full-screen resolution
+- 💻Responsive: efficient resizing, and native full-screen resolution
 
 ## ℹUsage
 You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) (may go stale), or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch (cutting-edge). If you downloaded the branch, then extract it, then open `src/index.html` on any 🌐browser.
