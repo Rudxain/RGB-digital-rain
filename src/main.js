@@ -223,6 +223,8 @@ const RGBDR_anim = (() => {
 	And set font-size accordingly
 	*/
 	const resize = () => {
+		// to-do: detect if the final dimensions
+		// are actually diff
 		const { clientWidth, clientHeight } = body
 		canv.style.width = clientWidth + "px"
 		canv.style.height = clientHeight + "px"
@@ -230,6 +232,7 @@ const RGBDR_anim = (() => {
 		const save = ctx.getImageData(0, 0, w, h)
 		w = canv.width = clientWidth * scale >>> 0
 		h = canv.height = clientHeight * scale >>> 0
+		// to-do: call only if the canvas grows AND is white
 		ctx_fillFull(anim.settings.dim_factor < 0 ? "fff" : "000")
 		ctx.putImageData(save, 0, 0)
 		//ctx.scale(scale, scale) // is normalization necessary?
