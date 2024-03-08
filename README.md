@@ -7,8 +7,9 @@
 ![](res/demo.png)
 
 ## ⚙️Features
-- ⚡️Real-time auto 🔆light/🌙dark theme switching, with _transitioning_ ✨️
+- ⚡️Efficient: GPU-accelerated rendering (WIP)
 - 👆Interactive: droplet spawning on 🖱click/touch
+- Real-time auto 🔆light/🌙dark theme switching, with _transitioning_ ✨️
 - 💻Responsive: efficient resizing, and native full-screen resolution
 
 ## ℹUsage
