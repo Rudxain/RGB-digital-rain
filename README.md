@@ -6,8 +6,14 @@
 ## ▶️Demo
 ![](res/demo.png)
 
+## ⚙️Features
+- ⚡️Real-time auto 🔆light/🌙dark theme switching, with _transitioning_ ✨️
+- 👆Interactive: droplet spawning on 🖱click/touch
+- 💻Responsive: efficient resizing, without loss of pixel data
+- 📷HD: native full-screen resolution
+
 ## ℹUsage
-You can [go to the website](https://Rudxain.github.io/RGB-digital-rain), or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch as a zip. If you downloaded the zip, then extract it, then open `src/index.html` in your 🌐browser of choice.
+You can [go to the website](https://Rudxain.github.io/RGB-digital-rain) (may go stale), or [⬇download](https://github.com/Rudxain/RGB-digital-rain/archive/refs/heads/main.zip) this branch (cutting-edge). If you downloaded the branch, then extract it, then open `src/index.html` on any 🌐browser.
 
 ## Naming?
 If you don't believe me, the "official" name is ["Digital Rain"](https://en.wikipedia.org/wiki/Matrix_digital_rain), even though the standard-de-facto is "falling code".
@@ -20,6 +26,6 @@ I downloaded the source, started editing in [VS-Code](https://en.wikipedia.org/w
 Later I realized GH allowed anyone to create web{page/site}s, so I started setting everything up, while also breaking my head trying to understand exactly what I had to do, lol. Some parts of the docs said I had to **install 3 different packages**, other parts told me to do other things. But in the end I realized it was much simpler than I thought.
 
 ## ⭐Credits
-1. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
-2. My family member for sending me the article.
-3. Inspiration by RGB PC setups like [this one](https://reddit.com/r/pcmasterrace/comments/rhzb6i/i_built_an_rgb_side_panel_with_the_matrix_digital) which looks similar to my animation.
+0. Original source code by 👤Ganesh Prasad: https://codepen.io/gnsp/pen/vYBQZJm
+1. My family member for sending me the article.
+2. Inspiration by RGB PC setups like [this one](https://reddit.com/r/pcmasterrace/comments/rhzb6i/i_built_an_rgb_side_panel_with_the_matrix_digital) which looks similar to my animation.
