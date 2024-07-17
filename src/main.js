@@ -233,7 +233,7 @@ const RGBDR_anim = (() => {
 		ctx.putImageData(save, 0, 0)
 		//ctx.scale(scale, scale) // is normalization necessary?
 
-		//issue #43
+		// issue #43
 		droplet_abs_size = anim.settings.droplet_rel_size * Math.min(w, h) * 2
 		ctx.font = `bold ${droplet_abs_size}px monospace`
 	}
