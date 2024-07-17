@@ -6,7 +6,7 @@ const RGBDR_anim = (() => {
 		/** Maximum `Uint8` */
 		MAX_U8 = 0xff,
 		/** Maximum `Uint32` + 1 */
-		POW2_32 = 2 ** 32 //eslint-disable-line no-magic-numbers
+		POW2_32 = 2 ** 32
 
 	/** `const isFinite` binding, for purity */
 	const not_inf_nan = isFinite
@@ -55,7 +55,7 @@ const RGBDR_anim = (() => {
 	@param {number} f frequency
 	@return interval
 	*/
-	const Hz_to_ms = f => 1000 / f //eslint-disable-line no-magic-numbers
+	const Hz_to_ms = f => 1000 / f
 
 	const
 		doc = document,
@@ -129,7 +129,7 @@ const RGBDR_anim = (() => {
 				/** ratio to multiply with canvas dimensions */
 				droplet_rel_size: 1 / DROPLET_DENSITY,
 				/** dimming coefficient */
-				dim_factor: 3 / 4 * (is_dark ? 1 : -1),//eslint-disable-line no-magic-numbers
+				dim_factor: 3 / 4 * (is_dark ? 1 : -1),
 				/** miliseconds to debounce until `resize` is called */
 				resize_delay_ms: 250
 			}
@@ -183,7 +183,6 @@ const RGBDR_anim = (() => {
 			this.#x = x
 			this.#y = y
 			if (gen_max)
-				//eslint-disable-next-line no-magic-numbers
 				this.#max_y = rand_U32(h * 3 / 4, h + droplet_abs_size)
 			this.#color = rand_pick(anim.settings.colors)
 			return this
@@ -344,7 +343,6 @@ const RGBDR_anim = (() => {
 
 		// performance [0]...
 		if (dim) {
-			//eslint-disable-next-line no-magic-numbers
 			ctx_fillFull((df < 0 ? "ffffff" : "000000") + dim.toString(0x10).padStart(2, "0"))
 			// [0]... and ensure hi-FPS don't cause `dim` to get stuck as a no-op.
 			last_dim = now
