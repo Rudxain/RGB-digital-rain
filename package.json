@@ -14,8 +14,5 @@
   "bugs": {
     "url": "https://github.com/Rudxain/RGB-digital-rain/issues"
   },
-  "homepage": "https://github.com/Rudxain/RGB-digital-rain#readme",
-  "devDependencies": {
-    "eslint": "^8.57.0"
-  }
+  "homepage": "https://github.com/Rudxain/RGB-digital-rain#readme"
 }
