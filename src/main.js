@@ -209,6 +209,8 @@ const RGBDR_anim = (() => {
 			// don't do this at home, kids!
 			const y = this.#y += n
 			if (is_inf_nan(y))
+				// WARN: if a `try` `catch`es this,
+				// the invariant will be broken!
 				throw new RangeError(`${y}`)
 			return y
 		}
