@@ -9,7 +9,7 @@
 ],
 "icons": [
 	{
-		"src": "../res/icon.svg",
+		"src": "./res/icon.svg",
 		"sizes": "any",
 		"type": "image/svg+xml"
 	}
